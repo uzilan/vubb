@@ -108,7 +108,7 @@ const winner = (): Winner => {
 
 const saveGame = () => {
   const game = ({
-    playersNames: props.players.map(player => player.name),
+    playerNames: props.players.map(player => player.name),
     rows: props.players.map(player => ({
         player: player.name,
         ss: player.points[0] ?? 0,
