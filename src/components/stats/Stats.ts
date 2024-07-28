@@ -1,5 +1,18 @@
 import type { Game } from '@/models/Game'
 import type { Row } from '@/models/Row'
+import type { Winner } from '@/models/Winner'
+import { DateTime } from 'luxon'
+
+export interface NameAndValue {
+  name: string
+  value: number
+}
+
+export interface WinnerAndLoser {
+  winner: NameAndValue
+  loser: NameAndValue
+  diff: number
+}
 
 export class Stats {
   games: Game[]
@@ -24,39 +37,39 @@ export class Stats {
     return this.playerRows(player).map(row => row.sum)
   }
 
-  private frequencies = (arr: any[]) =>
-    arr.reduce((a, v) => {
+  private frequencies = (arr: any[]): NameAndValue[] => {
+    const reduced = arr.reduce((a, v) => {
       a[v] = (a[v] ?? 0) + 1
       return a
     }, {})
-
-  playerGames = (player: string | undefined) => {
-    if (!player) return
-    return this.playerRows(player)
+    const entries = Object.entries(reduced)
+    return entries.map(entry => (
+      { name: entry[0], value: Number(entry[1]) })
+    )
   }
 
-  maxPoints = (player: string | undefined) => {
+  maxPoints = (player: string | undefined): number | undefined => {
     if (!player) return
     return Math.max(...this.playerGameSums(player))
   }
 
-  minPoints = (player: string | undefined) => {
+  minPoints = (player: string | undefined): number | undefined => {
     if (!player) return
     return Math.min(...this.playerGameSums(player))
   }
 
-  numberOfGames = (player: string | undefined) => {
+  numberOfGames = (player: string | undefined): number | undefined => {
     if (!player) return
     return this.playerRows(player).length
   }
 
-  averagePoints = (player: string | undefined) => {
+  averagePoints = (player: string | undefined): number | undefined => {
     if (!player) return
     const sums = this.playerGameSums(player)
     return Math.round(sums.reduce((a, b) => a + b) / sums.length)
   }
 
-  setAverages = (player: string | undefined) => {
+  setAverages = (player: string | undefined): number[] | undefined => {
     if (!player) return
     const rows = this.playerRows(player)
     const sums = { ss: 0, sl: 0, ll: 0, sss: 0, ssl: 0, sll: 0, lll: 0 }
@@ -73,7 +86,7 @@ export class Stats {
     return Object.values(sums).map(x => Math.round(x / rows.length))
   }
 
-  setMaxes = (player: string | undefined) => {
+  setMaxes = (player: string | undefined): number[] | undefined => {
     if (!player) return
     const rows = this.playerRows(player)
     return [
@@ -87,7 +100,7 @@ export class Stats {
     ]
   }
 
-  placements = (player: string | undefined) => {
+  placements = (player: string | undefined): number[] | undefined => {
     if (!player) return
 
     const placement = (game: Game) => {
@@ -102,55 +115,74 @@ export class Stats {
     return placements.slice(0, 5)
   }
 
-  winners = () => {
+  winners = (): NameAndValue[] => {
     const winners = this.games.map(game => game.winner.name)
-    const frequencies = Object.entries(this.frequencies(winners))
-    const sorted = frequencies.sort((a, b) => b[1] - a[1])
-    return new Map(sorted)
+    const frequencies = this.frequencies(winners)
+    return frequencies.sort((a, b) => b.value - a.value)
   }
 
-  lowests = () => {
+  lowests = (): Winner[] => {
     const winners = this.games.map(game => game.winner)
     return winners.sort((a, b) => a.points - b.points)
   }
 
-  highests = () => {
-    const playerSums = this.games.flatMap(game => game.rows.map(row => [row.player, row.sum]))
-    return playerSums.sort((a, b) => b[1] - a[1])
+  highests = (): NameAndValue[] => {
+    const playerSums = this.games.flatMap(game =>
+      game.rows.map(row => ({ name: row.player, value: row.sum })))
+    return playerSums.sort((a, b) => b.value - a.value)
   }
 
-  highestHand = () => {
+  highestHand = (): NameAndValue[] => {
     const highestInRow = (row: Row) => Math.max(row.ss, row.sl, row.ll, row.sss, row.ssl, row.sll, row.lll)
     const rows = this.games.flatMap(game => game.rows.map(row =>
-      [row.player, highestInRow(row)]))
-    return rows.sort((a, b) => b[1] - a[1])
+      ({ name: row.player, value: highestInRow(row) })))
+    return rows.sort((a, b) => b.value - a.value)
   }
 
-  mostPlayed = () => {
+  mostPlayed = (): NameAndValue[] => {
     const players = new Set(this.games.flatMap(game => game.playerNames.map(player => player.trim())))
     const playersAndGameCount = [...players].map(player => {
       const gamesWithPlayer = this.games
         .filter(game => game.playerNames.map(player => player.trim()).includes(player)).length
-      return [player, gamesWithPlayer]
+      return ({ name: player, value: gamesWithPlayer })
     })
-    return playersAndGameCount.sort((a, b) => b[1] - a[1])
+    return playersAndGameCount.sort((a, b) => b.value - a.value)
   }
 
-  highestDiff = () => {
-    const winnerAndPoints = (game: Game) => [game.winner.name, game.winner.points]
-    const loserAndPoints = (game: Game) => {
-      const sortedSums = game.rows.map(row => [row.player, row.sum]).sort((a, b) => b[1] - a[1])
+
+  highestDiff = (): WinnerAndLoser[] => {
+    const winnerAndPoints = (game: Game): NameAndValue => ({ name: game.winner.name, value: game.winner.points })
+    const loserAndPoints = (game: Game): NameAndValue => {
+      const sortedSums = game.rows.map(row => ({ name: row.player, value: row.sum }))
+        .sort((a, b) => b.value - a.value)
       return sortedSums[0]
     }
-    const gameDiff = (game: Game) => {
+    const gameDiff = (game: Game): WinnerAndLoser => {
       const winner = winnerAndPoints(game)
       const loser = loserAndPoints(game)
-      const conc = winner.concat(loser)
-      conc.push(loser[1] - winner[1])
-      return conc
+      return ({ winner: winner, loser: loser, diff: loser.value - winner.value })
     }
     const diffs = this.games.map(game => gameDiff(game))
-    return diffs.sort((a, b) => b[4] - a[4])
+    return diffs.sort((a, b) => b.diff - a.diff)
+  }
+
+  calendar = (): NameAndValue[] => {
+    const dates = this.games
+      .map(game => DateTime.fromISO(game.date).toFormat('yyyy-MM'))
+      .sort()
+    const frequencies = this.frequencies(dates)
+    return frequencies.sort((a, b) => a.name.localeCompare(b.name))
+  }
+
+  weekdays = (): NameAndValue[] => {
+    const weekdays = this.games
+      .map(game => DateTime.fromISO(game.date).weekdayLong)
+    const frequencies = this.frequencies(weekdays)
+    return frequencies.sort((a, b) => {
+      const wa = DateTime.fromFormat(a.name, 'EEEE')
+      const wb = DateTime.fromFormat(b.name, 'EEEE')
+      return wa.weekday - wb.weekday
+    })
   }
 }
 

@@ -22,6 +22,7 @@
     <div>
       <CChart
         type="bar"
+        :options=options
         :data="{
     labels: [`oo`, 'o-', '--', 'ooo', 'oo-', 'o--', '---'],
     datasets: [
@@ -41,6 +42,7 @@
     <div>
       <CChart
         type="bar"
+        :options=options
         :data="{
     labels: [`1`, '2', '3', '4', '5'],
     datasets: [
@@ -76,7 +78,11 @@ const average = ref<number>()
 const setAverages = ref<number[]>()
 const setMaxes = ref<number[]>()
 const placements = ref<number[]>()
-
+const options = {
+  legend: {
+    display: false
+  }
+}
 
 watch(selectedPlayer, () => {
   max.value = stats?.maxPoints(selectedPlayer.value)

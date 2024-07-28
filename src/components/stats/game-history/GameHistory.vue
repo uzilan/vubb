@@ -1,9 +1,6 @@
 <template>
-  <div class="game-history">
-
   <MiniGame v-for="game of sortedGames()" :game="game"
             :key="game.date" />
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -30,8 +27,5 @@ const compareDates = (a: string, b: string) => {
 </script>
 
 <style scoped>
-.game-history{
-  height: 100vh;
-  overflow-y: scroll;
-}
+
 </style>

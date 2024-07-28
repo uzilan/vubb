@@ -1,6 +1,7 @@
 <template>
   <CButton class="stats" color="primary" @click="showStats = true">Statistik</CButton>
   <CModal
+    size="lg"
     :visible="showStats"
     @close="() => { showStats = false }"
   >
@@ -65,6 +66,19 @@ defineProps<{
 
 .scroll {
   height: 80vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
 </style>

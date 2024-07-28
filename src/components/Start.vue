@@ -44,6 +44,11 @@ const initPlayers = () => {
   }
 }
 
+const resetGame = () => {
+  numberOfPlayers.value = 0
+  players.value = []
+}
+
 const user = ref<User>()
 const setUser = (u: User) => {
   user.value = u
@@ -64,9 +69,9 @@ const loadStats = () => {
 }
 
 const saveGame = (game: Game) => {
-  console.log("saving")
   firebase.firestore().collection('games').add(game)
-  console.log("saved")
+  resetGame()
+  loadStats()
 }
 
 </script>
