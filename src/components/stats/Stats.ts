@@ -112,7 +112,7 @@ export class Stats {
   }
 
   winners = (): NameAndValue[] => {
-    const winners = this.games.map((game) => game.winner.name)
+    const winners = this.games.map((game) => game.winner.name.trim())
     const frequencies = this.frequencies(winners)
     return frequencies.sort((a, b) => b.value - a.value)
   }
