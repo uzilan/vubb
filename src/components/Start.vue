@@ -4,16 +4,18 @@
   <template v-if="user">
     <Stats :games="games" />
 
-    <div v-if="!players.length" class="players">
-      <CFormInput
-        type="number"
-        size="l"
-        id="numberOfPlayers"
-        label="Antal spelare&nbsp;&nbsp;"
-        placeholder=""
-        v-model="numberOfPlayers"
-      />&nbsp;
-      <CButton color="primary" @click="initPlayers()">Ok</CButton>
+    <div v-if="!players.length" class="players-wrapper">
+      <div class="players">
+        <CFormLabel for="numberOfPlayers" class="players-label">Antal spelare</CFormLabel>
+        <CFormInput
+          type="number"
+          size="l"
+          id="numberOfPlayers"
+          placeholder=""
+          v-model="numberOfPlayers"
+        />&nbsp;
+        <CButton color="primary" @click="initPlayers()">Ok</CButton>
+      </div>
     </div>
     <div v-if="players.length > 0" class="game" key="players.length">
       <Board :players="players" @saveGame="saveGame"></Board>
@@ -34,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { CFormInput } from '@coreui/vue/dist/esm/components/form'
+import { CFormInput, CFormLabel } from '@coreui/vue/dist/esm/components/form'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref } from 'vue'
 import type { Player } from '@/models/Player'
@@ -95,13 +97,30 @@ const saveGame = (game: Game) => {
 }
 </script>
 <style scoped lang="scss">
+.players-wrapper {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.players-label {
+  white-space: nowrap;
+  vertical-align: center;
+  font-weight: bolder;
+  font-size: 22px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
 .players {
+  margin: auto;
   display: flex;
+  width: 280px;
   justify-content: space-around;
 }
 
 h1 {
-  padding-top: 20px;
+  padding-top: 50px;
 }
 
 th,
