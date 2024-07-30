@@ -1,6 +1,5 @@
 <template>
-  <MiniGame v-for="game of sortedGames()" :game="game"
-            :key="game.date" />
+  <MiniGame v-for="game of sortedGames()" :game="game" :key="game.date" />
 </template>
 
 <script setup lang="ts">
@@ -9,7 +8,7 @@ import MiniGame from '@/components/stats/game-history/MiniGame.vue'
 import { DateTime } from 'luxon'
 
 const props = defineProps<{
-  games: Game[] | undefined,
+  games: Game[] | undefined
 }>()
 
 const sortedGames = () => {
@@ -23,9 +22,6 @@ const compareDates = (a: string, b: string) => {
   else if (date1 > date2) return -1
   return 0
 }
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -14,13 +14,25 @@
         v-model="numberOfPlayers"
       />&nbsp;
       <CButton color="primary" @click="initPlayers()">Ok</CButton>
-
     </div>
     <div v-if="players.length > 0" class="game" key="players.length">
       <Board :players="players" @saveGame="saveGame"></Board>
     </div>
   </template>
+  <CToaster class="p-3" placement="top-end">
+    <CToast :autohide="false" class="align-items-center" v-if="showSaved" visible>
+      <CToastBody>
+        Spelet är sparat. Statistiken hittar du här
+        <CIcon :icon="cilHandPointUp" size="l" />
+        <div class="mt-2 pt-2 border-top">
+          <CButton type="button" color="primary" size="sm" @click="showSaved = false"> OK</CButton>
+          <CToastClose as="CButton" color="secondary" size="sm" class="ms-1">Close</CToastClose>
+        </div>
+      </CToastBody>
+    </CToast>
+  </CToaster>
 </template>
+
 <script setup lang="ts">
 import { CFormInput } from '@coreui/vue/dist/esm/components/form'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
@@ -34,6 +46,9 @@ import type { Game } from '@/models/Game'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import Stats from '@/components/stats/Stats.vue'
+import { CToast, CToastBody, CToastClose, CToaster } from '@coreui/vue/dist/esm/components/toast'
+import { cilHandPointUp } from '@coreui/icons'
+import { CIcon } from '@coreui/icons-vue'
 
 const numberOfPlayers = ref<number>(0)
 const players = ref<Player[]>([])
@@ -57,26 +72,29 @@ const setUser = (u: User) => {
 
 const games = ref<Game[]>()
 const loadStats = () => {
-  firebase.firestore().collection('games').get().then((data: any) => {
-    games.value = data.docs.map((doc: any) => ({
+  firebase
+    .firestore()
+    .collection('games')
+    .get()
+    .then((data) => {
+      games.value = data.docs.map((doc) => ({
         playerNames: doc.get('playerNames'),
         rows: doc.get('rows'),
         winner: doc.get('winner'),
         date: doc.get('date')
-      })
-    )
-  })
+      }))
+    })
 }
 
+const showSaved = ref<boolean>(false)
 const saveGame = (game: Game) => {
   firebase.firestore().collection('games').add(game)
   resetGame()
   loadStats()
+  showSaved.value = true
 }
-
 </script>
 <style scoped lang="scss">
-
 .players {
   display: flex;
   justify-content: space-around;
@@ -86,7 +104,8 @@ h1 {
   padding-top: 20px;
 }
 
-th, .sum {
+th,
+.sum {
   font-weight: bolder;
 }
 
@@ -103,9 +122,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
-
-
 </style>

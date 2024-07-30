@@ -16,42 +16,41 @@
         <dd>{{ average }}</dd>
         <dt>Minpoäng:</dt>
         <dd>{{ min }}</dd>
-
       </dl>
     </div>
     <div>
       <CChart
         type="bar"
-        :options=options
+        :options="options"
         :data="{
-    labels: [`oo`, 'o-', '--', 'ooo', 'oo-', 'o--', '---'],
-    datasets: [
-      {
-        label: 'Genomsnittliga poäng',
-        data: setAverages ?? [],
-      },
-      {
-        label: 'Maxpoäng ',
-        data: setMaxes ?? [],
-      },
-    ],
-  }"
+          labels: [`oo`, 'o-', '--', 'ooo', 'oo-', 'o--', '---'],
+          datasets: [
+            {
+              label: 'Genomsnittliga poäng',
+              data: setAverages ?? []
+            },
+            {
+              label: 'Maxpoäng ',
+              data: setMaxes ?? []
+            }
+          ]
+        }"
         labels="months"
       />
     </div>
     <div>
       <CChart
         type="bar"
-        :options=options
+        :options="options"
         :data="{
-    labels: [`1`, '2', '3', '4', '5'],
-    datasets: [
-      {
-        label: 'Placeringar',
-        data: placements ?? [],
-      },
-    ],
-  }"
+          labels: [`1`, '2', '3', '4', '5'],
+          datasets: [
+            {
+              label: 'Placeringar',
+              data: placements ?? []
+            }
+          ]
+        }"
         labels="months"
       />
     </div>
@@ -66,7 +65,7 @@ import { ref, watch } from 'vue'
 import { CChart } from '@coreui/vue-chartjs'
 
 const props = defineProps<{
-  games: Game[] | undefined,
+  games: Game[] | undefined
 }>()
 
 const stats = props.games ? new Stats(props.games) : undefined
@@ -93,7 +92,6 @@ watch(selectedPlayer, () => {
   setMaxes.value = stats?.setMaxes(selectedPlayer.value)
   placements.value = stats?.placements(selectedPlayer.value)
 })
-
 </script>
 
 <style scoped>

@@ -18,18 +18,23 @@ div#app {
   padding-right: 5px;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   min-height: 100%;
   background-color: #3298dc;
   vertical-align: middle;
   text-align: center;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-table, thead, tbody, tr, th, td {
+table,
+thead,
+tbody,
+tr,
+th,
+td {
   background-color: #3298dc !important;
 }
-
 </style>

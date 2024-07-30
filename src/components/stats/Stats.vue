@@ -3,7 +3,11 @@
   <CModal
     size="lg"
     :visible="showStats"
-    @close="() => { showStats = false }"
+    @close="
+      () => {
+        showStats = false
+      }
+    "
   >
     <CModalHeader>
       <CModalTitle>Statistik</CModalTitle>
@@ -29,7 +33,14 @@
       </CTabs>
     </CModalBody>
     <CModalFooter>
-      <CButton color="secondary" @click="() => { showStats = false }">
+      <CButton
+        color="secondary"
+        @click="
+          () => {
+            showStats = false
+          }
+        "
+      >
         Stäng
       </CButton>
     </CModalFooter>
@@ -37,8 +48,13 @@
 </template>
 
 <script setup lang="ts">
-
-import { CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/vue/dist/esm/components/modal'
+import {
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle
+} from '@coreui/vue/dist/esm/components/modal'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref } from 'vue'
 import 'firebase/compat/firestore'
@@ -51,11 +67,9 @@ import GameStats from '@/components/stats/game-stats/GameStats.vue'
 const showStats = ref<boolean>(false)
 
 defineProps<{
-  games: Game[] | undefined,
+  games: Game[] | undefined
 }>()
-
 </script>
-
 
 <style scoped>
 .stats {
@@ -77,8 +91,7 @@ defineProps<{
 
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
-
 </style>

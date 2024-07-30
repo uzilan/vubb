@@ -16,8 +16,11 @@
         </CTableRow>
       </CTableHead>
       <CTableBody>
-        <CTableRow v-for="(row, playerIndex) in props.game?.rows" :key="playerIndex"
-                   :class="maybeWinner(row)">
+        <CTableRow
+          v-for="(row, playerIndex) in props.game?.rows"
+          :key="playerIndex"
+          :class="maybeWinner(row)"
+        >
           <CTableDataCell :class="maybeWinner(row)"> {{ row.player }}</CTableDataCell>
           <CTableDataCell :class="maybeWinner(row)">{{ row.ss }}</CTableDataCell>
           <CTableDataCell :class="maybeWinner(row)">{{ row.sl }}</CTableDataCell>
@@ -35,11 +38,18 @@
 
 <script setup lang="ts">
 import type { Game } from '@/models/Game'
-import { CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/vue'
+import {
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow
+} from '@coreui/vue'
 import type { Row } from '@/models/Row'
 
 const props = defineProps<{
-  game: Game | undefined,
+  game: Game | undefined
 }>()
 
 const maybeWinner = (row: Row) => {
@@ -47,7 +57,6 @@ const maybeWinner = (row: Row) => {
   return 'normal'
 }
 </script>
-
 
 <style scoped>
 th {

@@ -48,7 +48,7 @@
             placeholder=""
             v-model="player.name"
             key="playerIndex"
-          >{{ player.name }}
+            >{{ player.name }}
           </CFormInput>
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.points" v-bind:key="pointIndex">
@@ -71,7 +71,14 @@
 </template>
 <script setup lang="ts">
 import { cilCircle, cilMinus } from '@coreui/icons'
-import { CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/vue'
+import {
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow
+} from '@coreui/vue'
 import { CFormInput } from '@coreui/vue/dist/esm/components/form'
 import { CIcon } from '@coreui/icons-vue'
 import type { Player } from '@/models/Player'
@@ -81,7 +88,7 @@ import type { Winner } from '@/models/Winner'
 import { DateTime } from 'luxon'
 
 const props = defineProps<{
-  players: Player[],
+  players: Player[]
 }>()
 
 const sum = (player: Player): number => {
@@ -90,43 +97,48 @@ const sum = (player: Player): number => {
 
 const lastGamePlayed = ref<boolean>(false)
 
-watch(props.players, () => {
-  const lasts = props.players.map(player => player.points[6])
-  const registeredLasts = lasts.filter(points => points > 0)
-  lastGamePlayed.value = registeredLasts.length > 0
-}, {
-  deep: true,
-  immediate: true
-})
+watch(
+  props.players,
+  () => {
+    const lasts = props.players.map((player) => player.points[6])
+    const registeredLasts = lasts.filter((points) => points > 0)
+    lastGamePlayed.value = registeredLasts.length > 0
+  },
+  {
+    deep: true,
+    immediate: true
+  }
+)
 
 const emit = defineEmits(['saveGame'])
 
 const winner = (): Winner => {
-  const playersAndSums = [...props.players].map(player => ({ name: player.name, points: sum(player) }))
+  const playersAndSums = [...props.players].map((player) => ({
+    name: player.name,
+    points: sum(player)
+  }))
   return playersAndSums.sort((a, b) => a.points - b.points)[0]
 }
 
 const saveGame = () => {
-  const game = ({
-    playerNames: props.players.map(player => player.name),
-    rows: props.players.map(player => ({
-        player: player.name,
-        ss: player.points[0] ?? 0,
-        sl: player.points[1] ?? 0,
-        ll: player.points[2] ?? 0,
-        sss: player.points[3] ?? 0,
-        ssl: player.points[4] ?? 0,
-        sll: player.points[5] ?? 0,
-        lll: player.points[6] ?? 0,
-        sum: sum(player)
-      })
-    ),
+  const game = {
+    playerNames: props.players.map((player) => player.name),
+    rows: props.players.map((player) => ({
+      player: player.name,
+      ss: player.points[0] ?? 0,
+      sl: player.points[1] ?? 0,
+      ll: player.points[2] ?? 0,
+      sss: player.points[3] ?? 0,
+      ssl: player.points[4] ?? 0,
+      sll: player.points[5] ?? 0,
+      lll: player.points[6] ?? 0,
+      sum: sum(player)
+    })),
     winner: winner(),
-    date: DateTime.now().toFormat("yyyy-MM-dd"),
-  })
+    date: DateTime.now().toFormat('yyyy-MM-dd')
+  }
   emit('saveGame', game)
 }
-
 </script>
 <style scoped>
 .name {
