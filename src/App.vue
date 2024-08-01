@@ -16,6 +16,7 @@ div#app {
   grid-template-columns: none;
   padding-left: 5px;
   padding-right: 5px;
+  width: 100%;
 }
 
 html,

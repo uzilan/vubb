@@ -18,7 +18,20 @@
       </div>
     </div>
     <div v-if="players.length > 0" class="game" key="players.length">
-      <Board :players="players" @saveGame="saveGame"></Board>
+      <CTabs activeItemKey="normal-board">
+        <CTabList variant="pills">
+          <CTab itemKey="normal-board">UBB</CTab>
+          <CTab itemKey="long-board">LÅNG UBB</CTab>
+        </CTabList>
+        <CTabContent class="scroll">
+          <CTabPanel class="p-3" itemKey="normal-board">
+            <Board :players="players" @saveGame="saveGame"></Board>
+          </CTabPanel>
+          <CTabPanel class="p-3" itemKey="long-board">
+            <LongBoard :players="players" @resetGame="resetGame"></LongBoard>
+          </CTabPanel>
+        </CTabContent>
+      </CTabs>
     </div>
   </template>
   <CToaster class="p-3" placement="top-end">
@@ -51,6 +64,8 @@ import Stats from '@/components/stats/Stats.vue'
 import { CToast, CToastBody, CToastClose, CToaster } from '@coreui/vue/dist/esm/components/toast'
 import { cilHandPointUp } from '@coreui/icons'
 import { CIcon } from '@coreui/icons-vue'
+import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
+import LongBoard from '@/components/LongBoard.vue'
 
 const numberOfPlayers = ref<number>(0)
 const players = ref<Player[]>([])
@@ -131,6 +146,7 @@ th,
 .game {
   padding-top: 10px;
   display: grid;
+  width: 100%;
 }
 
 /* Chrome, Safari, Edge, Opera */
