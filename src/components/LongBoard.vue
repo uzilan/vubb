@@ -41,7 +41,7 @@
       </CTableRow>
     </CTableHead>
     <CTableBody>
-      <CTableRow v-for="(player, playerIndex) in players" :key="playerIndex">
+      <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell v-model="player.name" class="name">
           <CFormInput
             type="text"
@@ -59,9 +59,6 @@
       </CTableRow>
     </CTableBody>
   </CTable>
-  <div>
-    <CButton @click="resetGame()" color="primary">Starta om</CButton>
-  </div>
 </template>
 <script setup lang="ts">
 import { cilCircle, cilMinus } from '@coreui/icons'
@@ -75,18 +72,9 @@ import {
 } from '@coreui/vue'
 import { CFormCheck, CFormInput } from '@coreui/vue/dist/esm/components/form'
 import { CIcon } from '@coreui/icons-vue'
-import type { Player } from '@/models/Player'
-import { CButton } from '@coreui/vue/dist/esm/components/button'
+import { usePlayersStore } from '@/components/PlayersStore'
 
-defineProps<{
-  players: Player[]
-}>()
-
-const emit = defineEmits(['resetGame'])
-
-const resetGame = () => {
-  emit('resetGame')
-}
+const playersStore = usePlayersStore()
 </script>
 <style scoped>
 .name {

@@ -1,5 +1,5 @@
 <template>
-  <div class="login" v-if="!user">
+  <div class="login" v-if="!store.user">
     <div class="login-button-google">
       <button class="gsi-material-button" @click="loginWithGoogle">
         <div class="gsi-material-button-state"></div>
@@ -42,25 +42,19 @@
       </CButton>
     </div>
   </div>
-  <div class="logout" v-if="user">
+  <div class="logout" v-if="store.user">
     <CButton color="primary" @click="logout"> Logga ut</CButton>
   </div>
 </template>
 <script setup lang="ts">
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
-import type { User } from '@firebase/auth'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
-import { ref } from 'vue'
-import { firebaseConfig } from '@/credentials'
-// import { firebaseConfig } from '@/credentials-dev'
+import { useAuthStore } from '@/components/AuthStore'
 
-const user = ref<User>()
-const token = ref<Promise<firebase.auth.UserCredential>>()
+const store = useAuthStore()
 
-firebase.initializeApp(firebaseConfig)
-
-const emit = defineEmits(['user'])
+const emit = defineEmits(['loginDone', 'logoutDone'])
 
 const loginWithGoogle = () => login(new firebase.auth.GoogleAuthProvider())
 const loginWithTwitter = () => login(new firebase.auth.TwitterAuthProvider())
@@ -70,9 +64,9 @@ const login = (authProvider: firebase.auth.AuthProvider) => {
     .auth()
     .signInWithPopup(authProvider)
     .then((result: any) => {
-      token.value = result.credential.accessToken
-      user.value = result.user
-      emit('user', user.value)
+      store.token = result.credential.accessToken
+      store.user = result.user
+      emit('loginDone')
     })
     .catch((err: any) => {
       console.log(err)
@@ -84,9 +78,12 @@ const logout = () => {
     .auth()
     .signOut()
     .then(() => {
-      user.value = undefined
-      token.value = undefined
-      emit('user', undefined)
+      store.token = undefined
+      store.user = undefined
+      emit('logoutDone')
+    })
+    .catch((err: any) => {
+      console.log(err)
     })
 }
 </script>

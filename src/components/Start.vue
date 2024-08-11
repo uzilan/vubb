@@ -1,10 +1,17 @@
 <template>
-  <h1 v-if="!players.length">Välkommen till UBB!</h1>
-  <Auth @user="setUser" />
-  <template v-if="user">
+  <h1 v-if="!playersStore.players.length">Välkommen till UBB!</h1>
+  <CButton
+    v-if="authStore.user && playersStore.players.length"
+    color="primary"
+    @click="resetGame"
+    class="reset-button"
+    >Starta om
+  </CButton>
+  <Auth @loginDone="loadStats" @logoutDone="resetGame" />
+  <template v-if="authStore.user">
     <Stats :games="games" />
 
-    <div v-if="!players.length" class="players-wrapper">
+    <div v-if="!playersStore.players.length" class="players-wrapper">
       <div class="players">
         <CFormLabel for="numberOfPlayers" class="players-label">Antal spelare</CFormLabel>
         <CFormInput
@@ -17,7 +24,7 @@
         <CButton color="primary" @click="initPlayers()">Ok</CButton>
       </div>
     </div>
-    <div v-if="players.length > 0" class="game" key="players.length">
+    <div v-if="playersStore.players.length > 0" class="game" key="players.length">
       <CTabs activeItemKey="normal-board">
         <CTabList variant="pills">
           <CTab itemKey="normal-board">UBB</CTab>
@@ -25,10 +32,10 @@
         </CTabList>
         <CTabContent class="scroll">
           <CTabPanel class="p-3" itemKey="normal-board">
-            <Board :players="players" @saveGame="saveGame"></Board>
+            <Board @saveGame="saveGame"></Board>
           </CTabPanel>
           <CTabPanel class="p-3" itemKey="long-board">
-            <LongBoard :players="players" @resetGame="resetGame"></LongBoard>
+            <LongBoard></LongBoard>
           </CTabPanel>
         </CTabContent>
       </CTabs>
@@ -40,7 +47,7 @@
         Spelet är sparat. Statistiken hittar du här
         <CIcon :icon="cilHandPointUp" size="l" />
         <div class="mt-2 pt-2 border-top">
-          <CButton type="button" color="primary" size="sm" @click="showSaved = false"> OK</CButton>
+          <CButton type="button" color="primary" size="sm" @click="showSaved = false">OK</CButton>
           <CToastClose as="CButton" color="secondary" size="sm" class="ms-1">Close</CToastClose>
         </div>
       </CToastBody>
@@ -52,10 +59,8 @@
 import { CFormInput, CFormLabel } from '@coreui/vue/dist/esm/components/form'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref } from 'vue'
-import type { Player } from '@/models/Player'
 import Board from '@/components/Board.vue'
 import Auth from '@/components/Auth.vue'
-import type { User } from '@firebase/auth'
 import firebase from 'firebase/compat/app'
 import type { Game } from '@/models/Game'
 import 'firebase/compat/auth'
@@ -66,29 +71,33 @@ import { cilHandPointUp } from '@coreui/icons'
 import { CIcon } from '@coreui/icons-vue'
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
 import LongBoard from '@/components/LongBoard.vue'
+import { useAuthStore } from '@/components/AuthStore'
+import { usePlayersStore } from '@/components/PlayersStore'
+import { firebaseConfig } from '@/credentials'
+// import { firebaseConfig } from '@/credentials-dev'
+
+const authStore = useAuthStore()
+const playersStore = usePlayersStore()
 
 const numberOfPlayers = ref<number>(0)
-const players = ref<Player[]>([])
 
 const initPlayers = () => {
   for (let i = 0; i < numberOfPlayers.value; i++) {
-    players.value.push({ name: '', points: new Array(7).fill(null) })
+    playersStore.players.push({ name: '', points: new Array(7).fill(null) })
   }
 }
 
 const resetGame = () => {
   numberOfPlayers.value = 0
-  players.value = []
-}
-
-const user = ref<User>()
-const setUser = (u: User) => {
-  user.value = u
-  loadStats()
+  playersStore.players = []
 }
 
 const games = ref<Game[]>()
 const loadStats = () => {
+  if (!authStore.user) {
+    return
+  }
+
   firebase
     .firestore()
     .collection('games')
@@ -110,8 +119,16 @@ const saveGame = (game: Game) => {
   loadStats()
   showSaved.value = true
 }
+
+firebase.initializeApp(firebaseConfig)
+loadStats()
 </script>
 <style scoped lang="scss">
+.reset-button {
+  position: absolute;
+  top: 0;
+}
+
 .players-wrapper {
   width: 100%;
   text-align: center;

@@ -21,6 +21,8 @@
     "firebase": "^10.12.4",
     "firebase-admin": "^12.2.0",
     "luxon": "^3.4.4",
+    "pinia": "^2.2.0",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.31"
   },
   "devDependencies": {

@@ -39,7 +39,7 @@
       </CTableRow>
     </CTableHead>
     <CTableBody>
-      <CTableRow v-for="(player, playerIndex) in players" :key="playerIndex">
+      <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell v-model="player.name">
           <CFormInput
             type="text"
@@ -86,10 +86,9 @@ import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref, watch } from 'vue'
 import type { Winner } from '@/models/Winner'
 import { DateTime } from 'luxon'
+import { usePlayersStore } from '@/components/PlayersStore'
 
-const props = defineProps<{
-  players: Player[]
-}>()
+const playersStore = usePlayersStore()
 
 const sum = (player: Player): number => {
   return player.points.reduce((curr: number, acc: number) => Number(acc) + Number(curr), 0)
@@ -98,9 +97,9 @@ const sum = (player: Player): number => {
 const lastGamePlayed = ref<boolean>(false)
 
 watch(
-  props.players,
+  playersStore.players,
   () => {
-    const lasts = props.players.map((player) => player.points[6])
+    const lasts = playersStore.players.map((player) => player.points[6])
     const registeredLasts = lasts.filter((points) => points > 0)
     lastGamePlayed.value = registeredLasts.length > 0
   },
@@ -113,7 +112,7 @@ watch(
 const emit = defineEmits(['saveGame'])
 
 const winner = (): Winner => {
-  const playersAndSums = [...props.players].map((player) => ({
+  const playersAndSums = [...playersStore.players].map((player) => ({
     name: player.name,
     points: sum(player)
   }))
@@ -122,8 +121,8 @@ const winner = (): Winner => {
 
 const saveGame = () => {
   const game = {
-    playerNames: props.players.map((player) => player.name),
-    rows: props.players.map((player) => ({
+    playerNames: playersStore.players.map((player) => player.name),
+    rows: playersStore.players.map((player) => ({
       player: player.name,
       ss: player.points[0] ?? 0,
       sl: player.points[1] ?? 0,
