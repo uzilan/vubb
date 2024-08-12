@@ -31,6 +31,4 @@ coverage
 
 /src/credentials.ts
 /src/credentials-dev.ts
-/.firebase/hosting.ZGlzdA.cache
-/.firebaserc
-/firebase.json
+/.firebase
