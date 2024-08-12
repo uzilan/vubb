@@ -29,13 +29,17 @@
         <CTabList variant="pills">
           <CTab itemKey="normal-board">UBB</CTab>
           <CTab itemKey="long-board">LÅNG UBB</CTab>
+          <CTab itemKey="longer-board">LÄNGRE UBB</CTab>
         </CTabList>
         <CTabContent class="scroll">
           <CTabPanel class="p-3" itemKey="normal-board">
-            <Board @saveGame="saveGame"></Board>
+            <Board @saveGame="saveGame" />
           </CTabPanel>
           <CTabPanel class="p-3" itemKey="long-board">
-            <LongBoard></LongBoard>
+            <LongBoard />
+          </CTabPanel>
+          <CTabPanel class="p-3" itemKey="longer-board">
+            <LongerBoard />
           </CTabPanel>
         </CTabContent>
       </CTabs>
@@ -74,6 +78,7 @@ import LongBoard from '@/components/LongBoard.vue'
 import { useAuthStore } from '@/components/AuthStore'
 import { usePlayersStore } from '@/components/PlayersStore'
 import { firebaseConfig } from '@/credentials'
+import LongerBoard from '@/components/LongerBoard.vue'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
@@ -83,7 +88,11 @@ const numberOfPlayers = ref<number>(0)
 
 const initPlayers = () => {
   for (let i = 0; i < numberOfPlayers.value; i++) {
-    playersStore.players.push({ name: '', points: new Array(7).fill(null) })
+    playersStore.players.push({
+      name: '',
+      points: new Array(7).fill(null),
+      longerPoints: new Array(13).fill(null)
+    })
   }
 }
 

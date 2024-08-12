@@ -141,7 +141,7 @@ const saveGame = () => {
 </script>
 <style scoped>
 .name {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 input {
