@@ -41,15 +41,25 @@
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell v-model="player.name">
-          <CFormInput
-            type="text"
-            id="playerName"
-            label=""
-            placeholder=""
-            v-model="player.name"
-            key="playerIndex"
-            >{{ player.name }}
-          </CFormInput>
+          <div class="name-wrapper">
+            <div class="name-pointer-wrapper">
+              <CIcon
+                v-if="player.isDealer"
+                :icon="cilCaretRight"
+                :style="{ '--ci-primary-color': 'red' }"
+              />
+              <div v-else class="pointer-placeholder"></div>
+            </div>
+            <CFormInput
+              type="text"
+              id="playerName"
+              label=""
+              placeholder=""
+              v-model="player.name"
+              key="playerIndex"
+              >{{ player.name }}
+            </CFormInput>
+          </div>
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.points" v-bind:key="pointIndex">
           <CFormInput
@@ -70,7 +80,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { cilCircle, cilMinus } from '@coreui/icons'
+import { cilCaretRight, cilCircle, cilMinus } from '@coreui/icons'
 import {
   CTable,
   CTableBody,
@@ -86,7 +96,8 @@ import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref, watch } from 'vue'
 import type { Winner } from '@/models/Winner'
 import { DateTime } from 'luxon'
-import { usePlayersStore } from '@/components/PlayersStore'
+import { usePlayersStore } from '@/stores/PlayersStore'
+import { platform } from 'process'
 
 const playersStore = usePlayersStore()
 
@@ -96,12 +107,28 @@ const sum = (player: Player): number => {
 
 const lastGamePlayed = ref<boolean>(false)
 
+const isDealer = (player: Player) => {
+  const playedSets = playersStore.players.flatMap((pl) =>
+    pl.points.map((points, index) => {
+      return points > 0 ? index : 0
+    })
+  )
+
+  const latestSetIndex = Math.max(...playedSets)
+  const playerIndex = (latestSetIndex % playersStore.players.length) + 1
+  if (playerIndex === 1) {
+    return playersStore.players.indexOf(player) === 0
+  }
+  return playersStore.players[playerIndex] === player
+}
+
 watch(
   playersStore.players,
   () => {
     const lasts = playersStore.players.map((player) => player.points[6])
     const registeredLasts = lasts.filter((points) => points > 0)
     lastGamePlayed.value = registeredLasts.length > 0
+    playersStore.players.forEach((player) => (player.isDealer = isDealer(player)))
   },
   {
     deep: true,
@@ -142,6 +169,20 @@ const saveGame = () => {
 <style scoped>
 .name {
   min-width: 100px;
+}
+
+.name-wrapper {
+  display: flex;
+}
+
+.name-pointer-wrapper {
+  height: 100%;
+  padding-top: 7px;
+  padding-right: 7px;
+}
+
+.pointer-placeholder {
+  padding-right: 15px;
 }
 
 input {

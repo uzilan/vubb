@@ -6,5 +6,12 @@ export const usePlayersStore = defineStore('playersStore', {
   state: () => ({
     players: ref<Player[]>([])
   }),
+  actions: {
+    isDealer: function (player: Player) {
+      const lastSet = this.players[0].points
+      return true
+    }
+  },
+
   persist: true
 })

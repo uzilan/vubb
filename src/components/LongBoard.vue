@@ -72,7 +72,7 @@ import {
 } from '@coreui/vue'
 import { CFormCheck, CFormInput } from '@coreui/vue/dist/esm/components/form'
 import { CIcon } from '@coreui/icons-vue'
-import { usePlayersStore } from '@/components/PlayersStore'
+import { usePlayersStore } from '@/stores/PlayersStore'
 
 const playersStore = usePlayersStore()
 </script>

@@ -50,7 +50,7 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
-import { useAuthStore } from '@/components/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 
 const store = useAuthStore()
 

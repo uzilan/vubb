@@ -75,10 +75,10 @@ import { cilHandPointUp } from '@coreui/icons'
 import { CIcon } from '@coreui/icons-vue'
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
 import LongBoard from '@/components/LongBoard.vue'
-import { useAuthStore } from '@/components/AuthStore'
-import { usePlayersStore } from '@/components/PlayersStore'
 import { firebaseConfig } from '@/credentials'
 import LongerBoard from '@/components/LongerBoard.vue'
+import { usePlayersStore } from '@/stores/PlayersStore'
+import { useAuthStore } from '@/stores/AuthStore'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
@@ -91,7 +91,8 @@ const initPlayers = () => {
     playersStore.players.push({
       name: '',
       points: new Array(7).fill(null),
-      longerPoints: new Array(13).fill(null)
+      longerPoints: new Array(13).fill(null),
+      isDealer: false
     })
   }
 }
