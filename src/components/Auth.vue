@@ -31,26 +31,26 @@
               <path fill="none" d="M0 0h48v48H0z"></path>
             </svg>
           </div>
-          <span class="gsi-material-button-contents">Logga in med Google</span>
-          <span style="display: none">Logga in med Google</span>
+          <span class="gsi-material-button-contents">{{ $t('message.loginWithGoogle') }}</span>
+          <span style="display: none">{{ $t('message.loginWithGoogle') }}</span>
         </div>
       </button>
     </div>
     <div>
       <CButton color="primary" @click="loginWithTwitter" class="login-button-twitter">
-        <img src="../assets/twitter.png" alt="Logga in med Twitter" />
+        <img src="../assets/twitter.png" alt="{{ $t('message.loginWithTwitter') }}" />
       </CButton>
     </div>
   </div>
   <div class="logout" v-if="store.user">
-    <CButton color="primary" @click="logout"> Logga ut</CButton>
+    <CButton color="primary" @click="logout"> {{ $t('message.logout') }}</CButton>
   </div>
 </template>
 <script setup lang="ts">
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
-import { useAuthStore } from '@/components/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 
 const store = useAuthStore()
 

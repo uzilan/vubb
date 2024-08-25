@@ -70,13 +70,13 @@ export class Stats {
     const rows = this.playerRows(player)
     const sums = { ss: 0, sl: 0, ll: 0, sss: 0, ssl: 0, sll: 0, lll: 0 }
     rows.forEach((row: Row) => {
-      sums.ss += row.ss
-      sums.sl += row.sl
-      sums.ll += row.ll
-      sums.sss += row.sss
-      sums.ssl += row.ssl
-      sums.sll += row.sll
-      sums.lll += row.lll
+      sums.ss += Number(row.ss)
+      sums.sl += Number(row.sl)
+      sums.ll += Number(row.ll)
+      sums.sss += Number(row.sss)
+      sums.ssl += Number(row.ssl)
+      sums.sll += Number(row.sll)
+      sums.lll += Number(row.lll)
     })
 
     return Object.values(sums).map((x) => Math.round(x / rows.length))
@@ -86,13 +86,13 @@ export class Stats {
     if (!player) return
     const rows = this.playerRows(player)
     return [
-      Math.max(...rows.map((row) => row.ss)),
-      Math.max(...rows.map((row) => row.sl)),
-      Math.max(...rows.map((row) => row.ll)),
-      Math.max(...rows.map((row) => row.sss)),
-      Math.max(...rows.map((row) => row.ssl)),
-      Math.max(...rows.map((row) => row.sll)),
-      Math.max(...rows.map((row) => row.lll))
+      Math.max(...rows.map((row) => Number(row.ss))),
+      Math.max(...rows.map((row) => Number(row.sl))),
+      Math.max(...rows.map((row) => Number(row.ll))),
+      Math.max(...rows.map((row) => Number(row.sss))),
+      Math.max(...rows.map((row) => Number(row.ssl))),
+      Math.max(...rows.map((row) => Number(row.sll))),
+      Math.max(...rows.map((row) => Number(row.lll)))
     ]
   }
 

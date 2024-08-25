@@ -4,11 +4,11 @@
       <CRow class="align-items-start">
         <CCol>
           <div class="wrapwrapper">
-            <h4>Vinstligan</h4>
+            <h4>{{ $t('message.winningLeague') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="winner of stats?.winners()" :key="winner.name">
-                  <span>{{ winner.name }} - {{ winner.value }} ggr</span>
+                  <span>{{ winner.name }} - {{ winner.value }} {{ $t('message.times') }}</span>
                 </li>
               </ol>
             </div>
@@ -16,11 +16,11 @@
         </CCol>
         <CCol>
           <div class="wrapwrapper">
-            <h4>Lägsta vinstpoäng</h4>
+            <h4>{{ $t('message.lowestWinningPoints') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="winner of stats?.lowests()" :key="winner.name">
-                  <span>{{ winner.name }} - {{ winner.points }} p</span>
+                  <span>{{ winner.name }} - {{ winner.points }} {{ $t('message.points') }}</span>
                 </li>
               </ol>
             </div>
@@ -30,11 +30,11 @@
       <CRow>
         <CCol>
           <div class="wrapwrapper">
-            <h4>Poängligan</h4>
+            <h4>{{ $t('message.pointLeague') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="(heighest, index) of stats?.highests()" :key="index">
-                  <span>{{ heighest.name }} - {{ heighest.value }} p</span>
+                  <span>{{ heighest.name }} - {{ heighest.value }} {{ $t('message.points') }}</span>
                 </li>
               </ol>
             </div>
@@ -42,11 +42,11 @@
         </CCol>
         <CCol>
           <div class="wrapwrapper">
-            <h4>Högsta handen</h4>
+            <h4>{{ $t('message.highestHand') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="(hand, index) of stats?.highestHand()" :key="index">
-                  <span>{{ hand.name }} - {{ hand.value }} p</span>
+                  <span>{{ hand.name }} - {{ hand.value }} {{ $t('message.points') }}</span>
                 </li>
               </ol>
             </div>
@@ -56,11 +56,14 @@
       <CRow>
         <CCol>
           <div class="wrapwrapper">
-            <h4>Flest spelat</h4>
+            <h4>{{ $t('message.mostPlayed') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="(playerAndGameCount, index) of stats?.mostPlayed()" :key="index">
-                  <span>{{ playerAndGameCount.name }} - {{ playerAndGameCount.value }} ggr</span>
+                  <span
+                    >{{ playerAndGameCount.name }} - {{ playerAndGameCount.value }}
+                    {{ $t('message.times') }}</span
+                  >
                 </li>
               </ol>
             </div>
@@ -68,14 +71,14 @@
         </CCol>
         <CCol>
           <div class="wrapwrapper">
-            <h4>Högsta diffen</h4>
+            <h4>{{ $t('message.highestDiff') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="(diff, index) of stats?.highestDiff()" :key="index">
                   <span
                     >{{ diff.loser.name }} ({{ diff.loser.value }}) - {{ diff.winner.name }} ({{
                       diff.winner.value
-                    }}) - {{ diff.diff }}
+                    }}) - {{ diff.diff }} {{ $t('message.points') }}
                   </span>
                 </li>
               </ol>
@@ -91,7 +94,7 @@
         labels: stats?.calendar().map((entry) => entry.name),
         datasets: [
           {
-            label: 'Antal spel',
+            label: $t('message.numberOfGames'),
             data: stats?.calendar().map((entry) => entry.value) ?? []
           }
         ]
@@ -105,7 +108,7 @@
         labels: stats?.weekdays().map((entry) => entry.name),
         datasets: [
           {
-            label: 'Veckodag',
+            label: $t('message.weekday'),
             data: stats?.weekdays().map((entry) => entry.value) ?? []
           }
         ]

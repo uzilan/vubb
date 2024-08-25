@@ -1,20 +1,20 @@
 <template>
   <div class="player">
     <CFormSelect v-model="selectedPlayer">
-      <option value="">Välj en spelare</option>
+      <option value="">{{ $t('message.choosePlayer') }}</option>
       <option v-for="player of stats?.players()" key="player">{{ player }}</option>
     </CFormSelect>
   </div>
   <template v-if="selectedPlayer && selectedPlayer !== ''">
     <div>
       <dl>
-        <dt>Antal spel:</dt>
+        <dt>{{ $t('message.numberOfGames') }}:</dt>
         <dd>{{ numberOfGames }}</dd>
-        <dt>Maxpoäng:</dt>
+        <dt>{{ $t('message.maxPoints') }}:</dt>
         <dd>{{ max }}</dd>
-        <dt>Genomsnittliga poäng:</dt>
+        <dt>{{ $t('message.averagePoints') }}:</dt>
         <dd>{{ average }}</dd>
-        <dt>Minpoäng:</dt>
+        <dt>{{ $t('message.minPoints') }}:</dt>
         <dd>{{ min }}</dd>
       </dl>
     </div>
@@ -26,11 +26,11 @@
           labels: [`oo`, 'o-', '--', 'ooo', 'oo-', 'o--', '---'],
           datasets: [
             {
-              label: 'Genomsnittliga poäng',
+              label: $t('message.averagePoints'),
               data: setAverages ?? []
             },
             {
-              label: 'Maxpoäng ',
+              label: $t('message.maxPoints'),
               data: setMaxes ?? []
             }
           ]
@@ -46,7 +46,7 @@
           labels: [`1`, '2', '3', '4', '5'],
           datasets: [
             {
-              label: 'Placeringar',
+              label: $t('message.placements'),
               data: placements ?? []
             }
           ]

@@ -1,5 +1,7 @@
 <template>
-  <CButton class="stats" color="primary" @click="showStats = true">Statistik</CButton>
+  <CButton class="stats" color="primary" @click="showStats = true"
+    >{{ $t('message.statistics') }}
+  </CButton>
   <CModal
     size="lg"
     :visible="showStats"
@@ -10,14 +12,14 @@
     "
   >
     <CModalHeader>
-      <CModalTitle>Statistik</CModalTitle>
+      <CModalTitle>{{ $t('message.statistics') }}</CModalTitle>
     </CModalHeader>
     <CModalBody>
       <CTabs activeItemKey="game-stats">
         <CTabList variant="tabs">
-          <CTab itemKey="game-stats">Statistik</CTab>
-          <CTab itemKey="player-stats">Spelare</CTab>
-          <CTab itemKey="game-history">Spelhistorik</CTab>
+          <CTab itemKey="game-stats">{{ $t('message.statistics') }}</CTab>
+          <CTab itemKey="player-stats">{{ $t('message.players') }}</CTab>
+          <CTab itemKey="game-history">{{ $t('message.gameHistory') }}</CTab>
         </CTabList>
         <CTabContent class="scroll">
           <CTabPanel class="p-3" itemKey="game-stats">
@@ -32,18 +34,6 @@
         </CTabContent>
       </CTabs>
     </CModalBody>
-    <CModalFooter>
-      <CButton
-        color="secondary"
-        @click="
-          () => {
-            showStats = false
-          }
-        "
-      >
-        Stäng
-      </CButton>
-    </CModalFooter>
   </CModal>
 </template>
 
@@ -51,7 +41,6 @@
 import {
   CModal,
   CModalBody,
-  CModalFooter,
   CModalHeader,
   CModalTitle
 } from '@coreui/vue/dist/esm/components/modal'

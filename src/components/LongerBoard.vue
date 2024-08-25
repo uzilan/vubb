@@ -2,7 +2,7 @@
   <CTable>
     <CTableHead>
       <CTableRow>
-        <CTableHeaderCell scope="col" class="name">Namn</CTableHeaderCell>
+        <CTableHeaderCell scope="col" class="name">{{ $t('message.name') }}</CTableHeaderCell>
         <CTableHeaderCell scope="col">oo</CTableHeaderCell>
         <CTableHeaderCell scope="col">o-</CTableHeaderCell>
         <CTableHeaderCell scope="col">--</CTableHeaderCell>
@@ -16,7 +16,7 @@
         <CTableHeaderCell scope="col">oo--</CTableHeaderCell>
         <CTableHeaderCell scope="col">o---</CTableHeaderCell>
         <CTableHeaderCell scope="col">----</CTableHeaderCell>
-        <CTableHeaderCell scope="col">Summa</CTableHeaderCell>
+        <CTableHeaderCell scope="col">{{ $t('message.sum') }}</CTableHeaderCell>
       </CTableRow>
     </CTableHead>
     <CTableBody>
@@ -59,7 +59,7 @@ import {
 import { CFormInput } from '@coreui/vue/dist/esm/components/form'
 import type { Player } from '@/models/Player'
 import { ref, watch } from 'vue'
-import { usePlayersStore } from '@/components/PlayersStore'
+import { usePlayersStore } from '@/stores/PlayersStore'
 
 const playersStore = usePlayersStore()
 

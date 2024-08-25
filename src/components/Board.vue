@@ -2,7 +2,7 @@
   <CTable>
     <CTableHead>
       <CTableRow>
-        <CTableHeaderCell scope="col" class="name">Namn</CTableHeaderCell>
+        <CTableHeaderCell scope="col" class="name">{{ $t('message.name') }}</CTableHeaderCell>
         <CTableHeaderCell scope="col">
           <CIcon :icon="cilCircle" size="l" />
           <CIcon :icon="cilCircle" size="l" />
@@ -35,7 +35,7 @@
           <CIcon :icon="cilMinus" size="l" />
           <CIcon :icon="cilMinus" size="l" />
         </CTableHeaderCell>
-        <CTableHeaderCell scope="col">Summa</CTableHeaderCell>
+        <CTableHeaderCell scope="col">{{ $t('message.sum') }}</CTableHeaderCell>
       </CTableRow>
     </CTableHead>
     <CTableBody>
@@ -51,7 +51,7 @@
             >{{ player.name }}
           </CFormInput>
         </CTableDataCell>
-        <CTableDataCell v-for="(point, pointIndex) in player.points" v-bind:key="pointIndex">
+        <CTableDataCell v-for="(_, pointIndex) in player.points" v-bind:key="pointIndex">
           <CFormInput
             type="number"
             id="numberOfPlayers"
@@ -66,7 +66,9 @@
     </CTableBody>
   </CTable>
   <div>
-    <CButton v-if="lastGamePlayed" @click="saveGame()" color="primary">Spara resultat</CButton>
+    <CButton v-if="lastGamePlayed" @click="saveGame()" color="primary">{{
+      $t('message.save')
+    }}</CButton>
   </div>
 </template>
 <script setup lang="ts">
@@ -86,7 +88,7 @@ import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref, watch } from 'vue'
 import type { Winner } from '@/models/Winner'
 import { DateTime } from 'luxon'
-import { usePlayersStore } from '@/components/PlayersStore'
+import { usePlayersStore } from '@/stores/PlayersStore'
 
 const playersStore = usePlayersStore()
 

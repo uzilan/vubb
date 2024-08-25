@@ -1,11 +1,11 @@
 <template>
-  <h1 v-if="!playersStore.players.length">Välkommen till UBB!</h1>
+  <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
   <CButton
     v-if="authStore.user && playersStore.players.length"
     color="primary"
     @click="resetGame"
     class="reset-button"
-    >Starta om
+    >{{ $t('message.restart') }}
   </CButton>
   <Auth @loginDone="loadStats" @logoutDone="resetGame" />
   <template v-if="authStore.user">
@@ -13,7 +13,9 @@
 
     <div v-if="!playersStore.players.length" class="players-wrapper">
       <div class="players">
-        <CFormLabel for="numberOfPlayers" class="players-label">Antal spelare</CFormLabel>
+        <CFormLabel for="numberOfPlayers" class="players-label">{{
+          $t('message.numberOfPlayers')
+        }}</CFormLabel>
         <CFormInput
           type="number"
           size="l"
@@ -21,15 +23,15 @@
           placeholder=""
           v-model="numberOfPlayers"
         />&nbsp;
-        <CButton color="primary" @click="initPlayers()">Ok</CButton>
+        <CButton color="primary" @click="initPlayers()">{{ $t('message.ok') }}</CButton>
       </div>
     </div>
     <div v-if="playersStore.players.length > 0" class="game" key="players.length">
       <CTabs activeItemKey="normal-board">
         <CTabList variant="pills">
-          <CTab itemKey="normal-board">UBB</CTab>
-          <CTab itemKey="long-board">LÅNG UBB</CTab>
-          <CTab itemKey="longer-board">LÄNGRE UBB</CTab>
+          <CTab itemKey="normal-board">{{ $t('message.ubb') }}</CTab>
+          <CTab itemKey="long-board">{{ $t('message.longUbb') }}</CTab>
+          <CTab itemKey="longer-board">{{ $t('message.longerUbb') }}</CTab>
         </CTabList>
         <CTabContent class="scroll">
           <CTabPanel class="p-3" itemKey="normal-board">
@@ -48,11 +50,15 @@
   <CToaster class="p-3" placement="top-end">
     <CToast :autohide="false" class="align-items-center" v-if="showSaved" visible>
       <CToastBody>
-        Spelet är sparat. Statistiken hittar du här
+        {{ $t('message.saved') }}
         <CIcon :icon="cilHandPointUp" size="l" />
         <div class="mt-2 pt-2 border-top">
-          <CButton type="button" color="primary" size="sm" @click="showSaved = false">OK</CButton>
-          <CToastClose as="CButton" color="secondary" size="sm" class="ms-1">Close</CToastClose>
+          <CButton type="button" color="primary" size="sm" @click="showSaved = false">
+            {{ $t('message.ok') }}</CButton
+          >
+          <CToastClose as="CButton" color="secondary" size="sm" class="ms-1">{{
+            $t('message.close')
+          }}</CToastClose>
         </div>
       </CToastBody>
     </CToast>
@@ -75,8 +81,8 @@ import { cilHandPointUp } from '@coreui/icons'
 import { CIcon } from '@coreui/icons-vue'
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
 import LongBoard from '@/components/LongBoard.vue'
-import { useAuthStore } from '@/components/AuthStore'
-import { usePlayersStore } from '@/components/PlayersStore'
+import { useAuthStore } from '@/stores/AuthStore'
+import { usePlayersStore } from '@/stores/PlayersStore'
 import { firebaseConfig } from '@/credentials'
 import LongerBoard from '@/components/LongerBoard.vue'
 // import { firebaseConfig } from '@/credentials-dev'

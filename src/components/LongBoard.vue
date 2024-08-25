@@ -2,7 +2,7 @@
   <CTable>
     <CTableHead>
       <CTableRow>
-        <CTableHeaderCell scope="col" class="name">Namn</CTableHeaderCell>
+        <CTableHeaderCell scope="col" class="name">{{ $t('message.name') }}</CTableHeaderCell>
         <CTableHeaderCell scope="col">
           <CIcon :icon="cilCircle" size="l" />
           <CIcon :icon="cilCircle" size="l" />
@@ -72,7 +72,7 @@ import {
 } from '@coreui/vue'
 import { CFormCheck, CFormInput } from '@coreui/vue/dist/esm/components/form'
 import { CIcon } from '@coreui/icons-vue'
-import { usePlayersStore } from '@/components/PlayersStore'
+import { usePlayersStore } from '@/stores/PlayersStore'
 
 const playersStore = usePlayersStore()
 </script>

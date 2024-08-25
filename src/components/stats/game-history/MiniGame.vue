@@ -4,7 +4,7 @@
     <CTable>
       <CTableHead>
         <CTableRow>
-          <CTableHeaderCell scope="col">Namn</CTableHeaderCell>
+          <CTableHeaderCell scope="col">{{ $t('message.name') }}</CTableHeaderCell>
           <CTableHeaderCell scope="col">oo</CTableHeaderCell>
           <CTableHeaderCell scope="col">o-</CTableHeaderCell>
           <CTableHeaderCell scope="col">--</CTableHeaderCell>
@@ -12,7 +12,7 @@
           <CTableHeaderCell scope="col">oo-</CTableHeaderCell>
           <CTableHeaderCell scope="col">o--</CTableHeaderCell>
           <CTableHeaderCell scope="col">---</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Summa</CTableHeaderCell>
+          <CTableHeaderCell scope="col">{{ $t('message.sum') }}</CTableHeaderCell>
         </CTableRow>
       </CTableHead>
       <CTableBody>
