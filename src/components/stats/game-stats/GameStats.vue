@@ -86,6 +86,23 @@
           </div>
         </CCol>
       </CRow>
+      <CRow>
+        <CCol>
+          <div class="wrapwrapper">
+            <h4>{{ $t('message.weighedWinner') }}</h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(weighedWinner, index) of stats?.weighedWinners()" :key="index">
+                  <span
+                    >{{ weighedWinner.name }} - {{ weighedWinner.value
+                    }}{{ $t('message.percentage') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+      </CRow>
     </CContainer>
     <CChart
       type="bar"

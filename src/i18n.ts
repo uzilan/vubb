@@ -27,6 +27,7 @@ export const inter = createI18n({
         gameHistory: 'Game History',
         winningLeague: 'Winning League',
         times: 'times',
+        percentage: '%',
         points: 'p',
         lowestWinningPoints: 'Lowest Winning Points',
         pointLeague: 'Point League',
@@ -39,7 +40,8 @@ export const inter = createI18n({
         maxPoints: 'Max Points',
         averagePoints: 'Average Points',
         minPoints: 'Minimum Points',
-        placements: 'Placements'
+        placements: 'Placements',
+        weighedWinner: 'Weighed Winners'
       }
     },
     sv: {
@@ -65,6 +67,7 @@ export const inter = createI18n({
         gameHistory: 'Spelhistorik',
         winningLeague: 'Vinstligan',
         times: 'ggr',
+        percentage: '%',
         points: 'p',
         lowestWinningPoints: 'Lägsta vinstpoäng',
         pointLeague: 'Poängligan',
@@ -77,7 +80,8 @@ export const inter = createI18n({
         maxPoints: 'Maxpoäng',
         averagePoints: 'Genomsnittliga poäng',
         minPoints: 'Minpoäng',
-        placements: 'Placeringar'
+        placements: 'Placeringar',
+        weighedWinner: 'Viktade vinnare'
       }
     }
   }
