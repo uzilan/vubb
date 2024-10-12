@@ -1,4 +1,22 @@
 <template>
+  <CButton color="primary" @click="showInstructions = true" class="instructions-button"
+    >{{ $t('message.instructions') }}
+  </CButton>
+  <CModal
+    size="xl"
+    alignment="center"
+    :backdrop="true"
+    :keyboard="false"
+    :visible="showInstructions"
+    @close="showInstructions = false"
+  >
+    <CModalHeader>
+      <CModalTitle>{{ $t('message.instructions') }}</CModalTitle>
+    </CModalHeader>
+    <CModalBody>
+      <Instructions />
+    </CModalBody>
+  </CModal>
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
   <CButton
     v-if="authStore.user && playersStore.players.length"
@@ -13,9 +31,9 @@
 
     <div v-if="!playersStore.players.length" class="players-wrapper">
       <div class="players">
-        <CFormLabel for="numberOfPlayers" class="players-label">{{
-          $t('message.numberOfPlayers')
-        }}</CFormLabel>
+        <CFormLabel for="numberOfPlayers" class="players-label"
+          >{{ $t('message.numberOfPlayers') }}
+        </CFormLabel>
         <CFormInput
           type="number"
           size="l"
@@ -54,11 +72,11 @@
         <CIcon :icon="cilHandPointUp" size="l" />
         <div class="mt-2 pt-2 border-top">
           <CButton type="button" color="primary" size="sm" @click="showSaved = false">
-            {{ $t('message.ok') }}</CButton
-          >
-          <CToastClose as="CButton" color="secondary" size="sm" class="ms-1">{{
-            $t('message.close')
-          }}</CToastClose>
+            {{ $t('message.ok') }}
+          </CButton>
+          <CToastClose as="CButton" color="secondary" size="sm" class="ms-1"
+            >{{ $t('message.close') }}
+          </CToastClose>
         </div>
       </CToastBody>
     </CToast>
@@ -85,10 +103,18 @@ import { useAuthStore } from '@/stores/AuthStore'
 import { usePlayersStore } from '@/stores/PlayersStore'
 import { firebaseConfig } from '@/credentials'
 import LongerBoard from '@/components/LongerBoard.vue'
+import {
+  CModal,
+  CModalBody,
+  CModalHeader,
+  CModalTitle
+} from '@coreui/vue/dist/esm/components/modal'
+import Instructions from '@/components/instructions/Instructions.vue'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
+const showInstructions = ref<boolean>(false)
 
 const numberOfPlayers = ref<number>(0)
 
@@ -139,9 +165,16 @@ firebase.initializeApp(firebaseConfig)
 loadStats()
 </script>
 <style scoped lang="scss">
+.instructions-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .reset-button {
   position: absolute;
   top: 0;
+  left: 110px;
 }
 
 .players-wrapper {
