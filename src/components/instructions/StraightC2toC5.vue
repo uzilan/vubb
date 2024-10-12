@@ -1,9 +1,9 @@
 <template>
   <div class="example">
-    <Card code="c2" />
-    <Card code="c3" />
-    <Card code="c4" />
-    <Card code="c5" />
+    <Card code="c2" height="60px" />
+    <Card code="c3" height="60px" />
+    <Card code="c4" height="60px" />
+    <Card code="c5" height="60px" />
   </div>
 </template>
 

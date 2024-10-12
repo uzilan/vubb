@@ -1,10 +1,10 @@
 <template>
   <div class="example">
-    <Card code="h6" />
-    <Card code="h7" />
-    <Card code="h8" />
-    <Card code="h9" />
-    <Card code="h0" />
+    <Card code="h6" height="60px" />
+    <Card code="h7" height="60px" />
+    <Card code="h8" height="60px" />
+    <Card code="h9" height="60px" />
+    <Card code="h0" height="60px" />
   </div>
 </template>
 

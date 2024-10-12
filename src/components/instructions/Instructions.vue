@@ -226,16 +226,16 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
     {{ $t('message.jokers1') }}:
     <div class="example-group">
       <div class="example">
-        <Card code="c4" />
-        <Card code="c5" />
-        <Card code="rj" />
-        <Card code="c7" />
+        <Card code="c4" height="60px" />
+        <Card code="c5" height="60px" />
+        <Card code="rj" height="60px" />
+        <Card code="c7" height="60px" />
       </div>
       {{ $t('message.or') }}
       <div class="example">
-        <Card code="c8" />
-        <Card code="h8" />
-        <Card code="bj" />
+        <Card code="c8" height="60px" />
+        <Card code="h8" height="60px" />
+        <Card code="bj" height="60px" />
       </div>
     </div>
     {{ $t('message.jokers2') }}
@@ -258,14 +258,14 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
           <CTableDataCell>2-9</CTableDataCell>
           <CTableDataCell>
             <div class="example">
-              <Card code="h2" />
-              <Card code="h3" />
-              <Card code="h4" />
-              <Card code="h5" />
-              <Card code="h6" />
-              <Card code="h7" />
-              <Card code="h8" />
-              <Card code="h9" />
+              <Card code="h2" height="60px" />
+              <Card code="h3" height="60px" />
+              <Card code="h4" height="60px" />
+              <Card code="h5" height="60px" />
+              <Card code="h6" height="60px" />
+              <Card code="h7" height="60px" />
+              <Card code="h8" height="60px" />
+              <Card code="h9" height="60px" />
             </div>
           </CTableDataCell>
           <CTableDataCell>5</CTableDataCell>
@@ -274,9 +274,9 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
           <CTableDataCell>{{ $t('message.jackQueenAndKing') }}</CTableDataCell>
           <CTableDataCell>
             <div class="example">
-              <Card code="cj" />
-              <Card code="cq" />
-              <Card code="ck" />
+              <Card code="cj" height="60px" />
+              <Card code="cq" height="60px" />
+              <Card code="ck" height="60px" />
             </div>
           </CTableDataCell>
           <CTableDataCell>10</CTableDataCell>
@@ -285,7 +285,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
           <CTableDataCell>{{ $t('message.ace') }}</CTableDataCell>
           <CTableDataCell>
             <div class="example">
-              <Card code="s1" />
+              <Card code="s1" height="60px" />
             </div>
           </CTableDataCell>
           <CTableDataCell>25</CTableDataCell>
@@ -294,8 +294,8 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
           <CTableDataCell>{{ $t('message.joker') }}</CTableDataCell>
           <CTableDataCell>
             <div class="example">
-              <Card code="bj" />
-              <Card code="rj" />
+              <Card code="bj" height="60px" />
+              <Card code="rj" height="60px" />
             </div>
           </CTableDataCell>
           <CTableDataCell>50</CTableDataCell>
@@ -305,13 +305,13 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
           <CTableDataCell>
             <div class="group">
               <div class="example">
-                <Card code="r3" />
-                <Card code="r4" />
-                <Card code="bj" />
-                <Card code="r6" />
+                <Card code="r3" height="60px" />
+                <Card code="r4" height="60px" />
+                <Card code="bj" height="60px" />
+                <Card code="r6" height="60px" />
               </div>
               <div class="example">
-                <Card code="r5" />
+                <Card code="r5" height="60px" />
               </div>
             </div>
           </CTableDataCell>

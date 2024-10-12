@@ -6,11 +6,7 @@ import { ref } from 'vue'
 
 const props = defineProps<{
   code: string
-  height: {
-    type: string
-    default: '60px'
-    required: false
-  }
+  height: string
 }>()
 const alt = ref<string>()
 const imgSrc = ref<string>()

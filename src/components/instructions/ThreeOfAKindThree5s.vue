@@ -1,8 +1,8 @@
 <template>
   <div class="example">
-    <Card code="h5" />
-    <Card code="s5" />
-    <Card code="c5" />
+    <Card code="h5" height="60px" />
+    <Card code="s5" height="60px" />
+    <Card code="c5" height="60px" />
   </div>
 </template>
 
