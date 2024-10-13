@@ -44,6 +44,10 @@ export class Stats {
     return entries.map((entry) => ({ name: entry[0], value: Number(entry[1]) }))
   }
 
+  private sortByValue = (nameAndValues: NameAndValue[]) => {
+    return nameAndValues.sort((a, b) => b.value - a.value)
+  }
+
   maxPoints = (player: string | undefined): number | undefined => {
     if (!player) return
     return Math.max(...this.playerGameSums(player))
@@ -82,6 +86,46 @@ export class Stats {
     return Object.values(sums).map((x) => Math.round(x / rows.length))
   }
 
+  setLeagues = () => {
+    const helper = (set: string) => {
+      const field = (row: Row) => {
+        switch (set) {
+          case 'ss':
+            return row.ss
+          case 'sl':
+            return row.sl
+          case 'll':
+            return row.ll
+          case 'sss':
+            return row.sss
+          case 'ssl':
+            return row.ssl
+          case 'sll':
+            return row.sll
+          default:
+            return row.lll
+        }
+      }
+
+      const namesAndPoints = this.games.flatMap((game) =>
+        game.rows.map((row) => {
+          return { name: row.player, value: field(row) }
+        })
+      )
+      return this.sortByValue(namesAndPoints)
+    }
+
+    return {
+      ss: helper('ss'),
+      sl: helper('sl'),
+      ll: helper('ll'),
+      sss: helper('sss'),
+      ssl: helper('ssl'),
+      sll: helper('sll'),
+      lll: helper('lll')
+    }
+  }
+
   setMaxes = (player: string | undefined): number[] | undefined => {
     if (!player) return
     const rows = this.playerRows(player)
@@ -114,7 +158,7 @@ export class Stats {
   winners = (): NameAndValue[] => {
     const winners = this.games.map((game) => game.winner.name.trim())
     const frequencies = this.frequencies(winners)
-    return frequencies.sort((a, b) => b.value - a.value)
+    return this.sortByValue(frequencies)
   }
 
   lowests = (): Winner[] => {
@@ -126,7 +170,7 @@ export class Stats {
     const playerSums = this.games.flatMap((game) =>
       game.rows.map((row) => ({ name: row.player, value: row.sum }))
     )
-    return playerSums.sort((a, b) => b.value - a.value)
+    return this.sortByValue(playerSums)
   }
 
   highestHand = (): NameAndValue[] => {
@@ -135,7 +179,7 @@ export class Stats {
     const rows = this.games.flatMap((game) =>
       game.rows.map((row) => ({ name: row.player, value: highestInRow(row) }))
     )
-    return rows.sort((a, b) => b.value - a.value)
+    return this.sortByValue(rows)
   }
 
   mostPlayed = (): NameAndValue[] => {
@@ -148,7 +192,7 @@ export class Stats {
       ).length
       return { name: player, value: gamesWithPlayer }
     })
-    return playersAndGameCount.sort((a, b) => b.value - a.value)
+    return this.sortByValue(playersAndGameCount)
   }
 
   highestDiff = (): WinnerAndLoser[] => {
@@ -157,10 +201,8 @@ export class Stats {
       value: game.winner.points
     })
     const loserAndPoints = (game: Game): NameAndValue => {
-      const sortedSums = game.rows
-        .map((row) => ({ name: row.player, value: row.sum }))
-        .sort((a, b) => b.value - a.value)
-      return sortedSums[0]
+      const sortedSums = game.rows.map((row) => ({ name: row.player, value: row.sum }))
+      return this.sortByValue(sortedSums)[0]
     }
     const gameDiff = (game: Game): WinnerAndLoser => {
       const winner = winnerAndPoints(game)

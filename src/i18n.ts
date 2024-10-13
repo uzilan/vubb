@@ -109,7 +109,8 @@ export const inter = createI18n({
         maxPoints: 'Max Points',
         averagePoints: 'Average Points',
         minPoints: 'Minimum Points',
-        placements: 'Placements'
+        placements: 'Placements',
+        setMasters: 'Set masters'
       }
     },
     sv: {
@@ -218,7 +219,8 @@ export const inter = createI18n({
         maxPoints: 'Maxpoäng',
         averagePoints: 'Genomsnittliga poäng',
         minPoints: 'Minpoäng',
-        placements: 'Placeringar'
+        placements: 'Placeringar',
+        setMasters: 'Omgångsmästare'
       }
     }
   }

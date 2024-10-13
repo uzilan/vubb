@@ -16,7 +16,7 @@
         </CCol>
         <CCol>
           <div class="wrapwrapper">
-            <h4>{{ $t('message.lowestWinningPoints') }}</h4>
+            <h4 class="nowrap">{{ $t('message.lowestWinningPoints') }}</h4>
             <div class="stats-wrapper">
               <ol>
                 <li v-for="winner of stats?.lowests()" :key="winner.name">
@@ -87,6 +87,144 @@
         </CCol>
       </CRow>
     </CContainer>
+    <CContainer>
+      <CRow>
+        <CCol
+          ><h4>{{ $t('message.setMasters') }}</h4></CCol
+        >
+      </CRow>
+      <CRow class="justify-content-center">
+        <CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilCircle" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().ss" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+        <CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().sl" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+        <CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilMinus" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().ll" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+        <CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilCircle" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().sss" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+        <CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().ssl" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+        <CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilCircle" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().sll" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div> </CCol
+        ><CCol lg="3" xs="6">
+          <div class="wrapwrapper">
+            <h4 class="center">
+              <CIcon :icon="cilMinus" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+              <CIcon :icon="cilMinus" size="l" />
+            </h4>
+            <div class="stats-wrapper">
+              <ol>
+                <li v-for="(playerAndPoints, index) of stats?.setLeagues().lll" :key="index">
+                  <span
+                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
+                    {{ $t('message.points') }}</span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+    </CContainer>
     <CChart
       type="bar"
       :options="options"
@@ -123,6 +261,8 @@ import type { Game } from '@/models/Game'
 import { Stats } from '@/components/stats/Stats'
 import { CCol, CContainer, CRow } from '@coreui/vue/dist/esm/components/grid'
 import { CChart } from '@coreui/vue-chartjs'
+import { cilCircle, cilMinus } from '@coreui/icons'
+import { CIcon } from '@coreui/icons-vue'
 
 const props = defineProps<{
   games: Game[] | undefined
@@ -176,5 +316,13 @@ span {
 
 .title {
   white-space: nowrap;
+}
+
+.chart-wrapper {
+  padding-top: 20px;
+}
+
+ol {
+  padding-left: 25px;
 }
 </style>
