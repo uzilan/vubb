@@ -110,7 +110,15 @@ export const inter = createI18n({
         averagePoints: 'Average Points',
         minPoints: 'Minimum Points',
         placements: 'Placements',
-        setMasters: 'Set masters'
+        setMasters: 'Set masters',
+
+        resetCertainty: 'Are you certain you want to restart?',
+        reset: 'Restart',
+        resetLevel0: 'No',
+        resetLevel1: 'Slightly',
+        resetLevel2: 'Quite',
+        resetLevel3: 'Mostly',
+        resetLevel4: 'Very'
       }
     },
     sv: {
@@ -220,7 +228,15 @@ export const inter = createI18n({
         averagePoints: 'Genomsnittliga poäng',
         minPoints: 'Minpoäng',
         placements: 'Placeringar',
-        setMasters: 'Omgångsmästare'
+        setMasters: 'Omgångsmästare',
+
+        resetCertainty: 'Är du säker på att du vill starta om?',
+        reset: 'Starta om',
+        resetLevel0: 'Nej',
+        resetLevel1: 'Sådär',
+        resetLevel2: 'Ganska',
+        resetLevel3: 'Hyfsat',
+        resetLevel4: 'Väldigt'
       }
     }
   }

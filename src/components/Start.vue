@@ -17,11 +17,28 @@
       <Instructions />
     </CModalBody>
   </CModal>
+
+  <CModal
+    size="l"
+    alignment="center"
+    :backdrop="true"
+    :keyboard="false"
+    :visible="showReset"
+    @close="showReset = false"
+  >
+    <CModalHeader>
+      <CModalTitle>{{ $t('message.resetCertainty') }}</CModalTitle>
+    </CModalHeader>
+    <CModalBody>
+      <Reset @reset="resetGame()" />
+    </CModalBody>
+  </CModal>
+
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
   <CButton
     v-if="authStore.user && playersStore.players.length"
     color="primary"
-    @click="resetGame"
+    @click="showReset = true"
     class="reset-button"
     >{{ $t('message.restart') }}
   </CButton>
@@ -110,11 +127,13 @@ import {
   CModalTitle
 } from '@coreui/vue/dist/esm/components/modal'
 import Instructions from '@/components/instructions/Instructions.vue'
+import Reset from '@/components/Certainty.vue'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
 const showInstructions = ref<boolean>(false)
+const showReset = ref<boolean>(false)
 
 const numberOfPlayers = ref<number>(0)
 
@@ -131,6 +150,7 @@ const initPlayers = () => {
 const resetGame = () => {
   numberOfPlayers.value = 0
   playersStore.players = []
+  showReset.value = false
 }
 
 const games = ref<Game[]>()
