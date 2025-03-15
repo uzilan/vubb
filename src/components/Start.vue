@@ -43,6 +43,7 @@
     >{{ $t('message.restart') }}
   </CButton>
   <Auth @loginDone="loadStats" @logoutDone="resetGame" />
+
   <template v-if="authStore.user">
     <Stats :games="games" />
 
@@ -82,11 +83,10 @@
       </CTabs>
     </div>
   </template>
-  <CToaster class="p-3" placement="top-end">
+  <CToaster class="p-3" placement="top-center">
     <CToast :autohide="false" class="align-items-center" v-if="showSaved" visible>
       <CToastBody>
         {{ $t('message.saved') }}
-        <CIcon :icon="cilHandPointUp" size="l" />
         <div class="mt-2 pt-2 border-top">
           <CButton type="button" color="primary" size="sm" @click="showSaved = false">
             {{ $t('message.ok') }}
