@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { cilCircle, cilMinus } from '@coreui/icons'
-import { CIcon } from '@coreui/icons-vue'
 import ThreeOfAKindFourQs from '@/components/instructions/ThreeOfAKindFourQs.vue'
 import ThreeOfAKindThree2s from '@/components/instructions/ThreeOfAKindThree2s.vue'
 import StraightC2toC5 from '@/components/instructions/StraightC2toC5.vue'
@@ -18,6 +16,7 @@ import {
 } from '@coreui/vue/dist/esm/components/table'
 import ThreeOfAKindThree8s from '@/components/instructions/ThreeOfAKindThree8s.vue'
 import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
+import CellWithIcons from '@/components/boards/CellWithIcons.vue'
 </script>
 
 <template>
@@ -76,10 +75,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 1</CTableDataCell>
           <CTableDataCell> 7</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilCircle" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="oo" />
           <CTableDataCell>{{ $t('message.twoTrios') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group">
@@ -90,10 +86,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 2</CTableDataCell>
           <CTableDataCell> 8</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="o-" />
           <CTableDataCell>{{ $t('message.oneTrioAndOneStraight') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group">
@@ -104,10 +97,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 3</CTableDataCell>
           <CTableDataCell> 9</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilMinus" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="--" />
           <CTableDataCell>{{ $t('message.twoStraights') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group"><StraightC2toC5 />&nbsp;&nbsp;<StraightSjtoS1 /></div>
@@ -116,11 +106,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 4</CTableDataCell>
           <CTableDataCell> 10</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilCircle" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="ooo" />
           <CTableDataCell>{{ $t('message.threeTrios') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group">
@@ -131,11 +117,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 5</CTableDataCell>
           <CTableDataCell> 10</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="oo-" />
           <CTableDataCell>{{ $t('message.twoTriosAndOneStraight') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group">
@@ -146,11 +128,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 6</CTableDataCell>
           <CTableDataCell> 10</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilCircle" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="o--" />
           <CTableDataCell>{{ $t('message.oneTrioAndTwoStraight') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group">
@@ -161,11 +139,7 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
         <CTableRow>
           <CTableDataCell> 7</CTableDataCell>
           <CTableDataCell> 10</CTableDataCell>
-          <CTableDataCell class="nowrap">
-            <CIcon :icon="cilMinus" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-            <CIcon :icon="cilMinus" size="l" />
-          </CTableDataCell>
+          <CellWithIcons icons="---" />
           <CTableDataCell>{{ $t('message.threeStraights') }}</CTableDataCell>
           <CTableDataCell>
             <div class="table-example-group">

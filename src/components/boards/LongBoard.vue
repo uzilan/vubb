@@ -3,41 +3,13 @@
     <CTableHead>
       <CTableRow>
         <CTableHeaderCell scope="col" class="name">{{ $t('message.name') }}</CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-          <span>&nbsp;&nbsp;&nbsp;</span>
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-          <span>&nbsp;&nbsp;&nbsp;</span>
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-          <span>&nbsp;&nbsp;&nbsp;</span>
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
+        <CellWithIcons icons="oo" />
+        <CellWithIcons icons="o-" />
+        <CellWithIcons icons="--" />
+        <CellWithIcons icons="ooo" />
+        <CellWithIcons icons="oo-" />
+        <CellWithIcons icons="o--" />
+        <CellWithIcons icons="---" />
       </CTableRow>
     </CTableHead>
     <CTableBody>
@@ -61,7 +33,6 @@
   </CTable>
 </template>
 <script setup lang="ts">
-import { cilCircle, cilMinus } from '@coreui/icons'
 import {
   CTable,
   CTableBody,
@@ -71,8 +42,8 @@ import {
   CTableRow
 } from '@coreui/vue'
 import { CFormCheck, CFormInput } from '@coreui/vue/dist/esm/components/form'
-import { CIcon } from '@coreui/icons-vue'
 import { usePlayersStore } from '@/stores/PlayersStore'
+import CellWithIcons from '@/components/boards/CellWithIcons.vue'
 
 const playersStore = usePlayersStore()
 </script>

@@ -3,38 +3,13 @@
     <CTableHead>
       <CTableRow>
         <CTableHeaderCell scope="col" class="name">{{ $t('message.name') }}</CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilCircle" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col">
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-          <CIcon :icon="cilMinus" size="l" />
-        </CTableHeaderCell>
+        <CellWithIcons icons="oo" />
+        <CellWithIcons icons="o-" />
+        <CellWithIcons icons="--" />
+        <CellWithIcons icons="ooo" />
+        <CellWithIcons icons="oo-" />
+        <CellWithIcons icons="o--" />
+        <CellWithIcons icons="---" />
         <CTableHeaderCell scope="col">{{ $t('message.sum') }}</CTableHeaderCell>
       </CTableRow>
     </CTableHead>
@@ -87,6 +62,7 @@ import type { Player } from '@/models/Player'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref, watch } from 'vue'
 import { usePlayersStore } from '@/stores/PlayersStore'
+import CellWithIcons from '@/components/boards/CellWithIcons.vue'
 
 const playersStore = usePlayersStore()
 
