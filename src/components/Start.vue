@@ -1,22 +1,5 @@
 <template>
-  <CButton color="primary" @click="showInstructions = true" class="instructions-button"
-    >{{ $t('message.instructions') }}
-  </CButton>
-  <CModal
-    size="xl"
-    alignment="center"
-    :backdrop="true"
-    :keyboard="false"
-    :visible="showInstructions"
-    @close="showInstructions = false"
-  >
-    <CModalHeader>
-      <CModalTitle>{{ $t('message.instructions') }}</CModalTitle>
-    </CModalHeader>
-    <CModalBody>
-      <Instructions />
-    </CModalBody>
-  </CModal>
+  <InstructionsWrapper />
 
   <CModal
     size="l"
@@ -112,8 +95,6 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import Stats from '@/components/stats/Stats.vue'
 import { CToast, CToastBody, CToastClose, CToaster } from '@coreui/vue/dist/esm/components/toast'
-import { cilHandPointUp } from '@coreui/icons'
-import { CIcon } from '@coreui/icons-vue'
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
 import LongBoard from '@/components/LongBoard.vue'
 import { useAuthStore } from '@/stores/AuthStore'
@@ -126,13 +107,12 @@ import {
   CModalHeader,
   CModalTitle
 } from '@coreui/vue/dist/esm/components/modal'
-import Instructions from '@/components/instructions/Instructions.vue'
 import Reset from '@/components/Certainty.vue'
+import InstructionsWrapper from '@/components/instructions/InstructionsWrapper.vue'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
-const showInstructions = ref<boolean>(false)
 const showReset = ref<boolean>(false)
 
 const numberOfPlayers = ref<number>(0)
@@ -185,12 +165,6 @@ firebase.initializeApp(firebaseConfig)
 loadStats()
 </script>
 <style scoped lang="scss">
-.instructions-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .reset-button {
   position: absolute;
   top: 0;
