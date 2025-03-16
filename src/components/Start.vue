@@ -1,10 +1,10 @@
 <template>
   <InstructionsWrapper />
-  <ResetWrapper @reset="resetGame" />
+  <ResetWrapper />
 
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
 
-  <Auth @loginDone="loadStats" @logoutDone="resetGame" />
+  <Auth @loginDone="loadStats" @logoutDone="playersStore.reset" />
 
   <template v-if="authStore.user">
     <Stats :games="games" />
@@ -19,7 +19,7 @@
           size="l"
           id="numberOfPlayers"
           placeholder=""
-          v-model="numberOfPlayers"
+          v-model="playersStore.numberOfPlayers"
         />&nbsp;
         <CButton color="primary" @click="initPlayers()">{{ $t('message.ok') }}</CButton>
       </div>
@@ -87,21 +87,14 @@ import ResetWrapper from '@/components/ResetWrapper.vue'
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
 
-const numberOfPlayers = ref<number>(0)
-
 const initPlayers = () => {
-  for (let i = 0; i < numberOfPlayers.value; i++) {
+  for (let i = 0; i < playersStore.numberOfPlayers; i++) {
     playersStore.players.push({
       name: '',
       points: new Array(7).fill(null),
       longerPoints: new Array(13).fill(null)
     })
   }
-}
-
-const resetGame = () => {
-  numberOfPlayers.value = 0
-  playersStore.players = []
 }
 
 const games = ref<Game[]>()
@@ -127,7 +120,7 @@ const loadStats = () => {
 const showSaved = ref<boolean>(false)
 const saveGame = (game: Game) => {
   firebase.firestore().collection('games').add(game)
-  resetGame()
+  playersStore.reset()
   loadStats()
   showSaved.value = true
 }

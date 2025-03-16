@@ -39,11 +39,10 @@ import { ref } from 'vue'
 const showReset = ref<boolean>(false)
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
-const emit = defineEmits(['reset'])
 
 const resetGame = () => {
   showReset.value = false
-  emit('reset')
+  playersStore.reset()
 }
 </script>
 
