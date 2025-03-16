@@ -49,7 +49,7 @@ const loadStats = () => {
 }
 
 const saveGame = () => {
-  gamesStore.saveGame(playersStore.game())
+  gamesStore.saveGame(playersStore.game(firebase?.auth()?.currentUser?.displayName ?? 'N/A'))
   playersStore.reset()
   loadStats()
 }

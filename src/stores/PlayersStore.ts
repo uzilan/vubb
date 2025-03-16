@@ -22,7 +22,7 @@ export const usePlayersStore = defineStore('playersStore', {
         })
       }
     },
-    game() {
+    game(user: string) {
       const playerNames = this.players.map((player: Player) => player.name)
       const rows = this.players.map((player: Player) => ({
         player: player.name,
@@ -47,7 +47,8 @@ export const usePlayersStore = defineStore('playersStore', {
         playerNames: playerNames,
         rows: rows,
         winner: winner,
-        date: date
+        date: date,
+        savedBy: user
       }
     }
   },

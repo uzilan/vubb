@@ -6,4 +6,5 @@ export interface Game {
   rows: Row[]
   winner: Winner
   date: string
+  savedBy: string
 }

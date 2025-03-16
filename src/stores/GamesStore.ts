@@ -19,7 +19,8 @@ export const useGamesStore = defineStore('gamesStore', {
             playerNames: doc.get('playerNames'),
             rows: doc.get('rows'),
             winner: doc.get('winner'),
-            date: doc.get('date')
+            date: doc.get('date'),
+            savedBy: doc.get('savedBy')
           }))
         })
     },
