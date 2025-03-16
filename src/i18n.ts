@@ -86,7 +86,7 @@ export const inter = createI18n({
           'At the end of the set, that is when one player has no cards left in their hand, all of the other players count their points. This is done by converting the remaining cards they have in their hands to points using the table below, and then summing them up.',
         cards: 'Cards',
         pointsHeader: 'Points',
-        jackQueenAndKing: 'Jack, queen and king',
+        tenJackQueenAndKing: 'Ten, jack, queen and king',
         ace: 'Ace',
         joker: 'Joker',
         jokerSubstitute:
@@ -204,7 +204,7 @@ export const inter = createI18n({
           'Vid omgångens slut, dvs när en spelare inte har några kort kvar i handen, räknar alla andra spelare sina poäng. Detta görs genom att varje spelare konverterar de kort de har kvar i handen till poäng mha av tabellen nedan och summerar ihop dem.',
         cards: 'Kort',
         pointsHeader: 'Poäng',
-        jackQueenAndKing: 'Knekt, dam och kung',
+        tenJackQueenAndKing: 'Tio, knekt, dam och kung',
         ace: 'Ess',
         joker: 'Joker',
         jokerSubstitute:

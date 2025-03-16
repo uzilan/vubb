@@ -271,9 +271,10 @@ import StraightD5toD8 from '@/components/instructions/StraightD5toD8.vue'
           <CTableDataCell>5</CTableDataCell>
         </CTableRow>
         <CTableRow>
-          <CTableDataCell>{{ $t('message.jackQueenAndKing') }}</CTableDataCell>
+          <CTableDataCell>{{ $t('message.tenJackQueenAndKing') }}</CTableDataCell>
           <CTableDataCell>
             <div class="example">
+              <Card code="c0" height="60px" />
               <Card code="cj" height="60px" />
               <Card code="cq" height="60px" />
               <Card code="ck" height="60px" />
