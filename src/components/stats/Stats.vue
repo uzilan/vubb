@@ -2,15 +2,7 @@
   <CButton class="stats" color="primary" @click="showStats = true"
     >{{ $t('message.statistics') }}
   </CButton>
-  <CModal
-    size="lg"
-    :visible="showStats"
-    @close="
-      () => {
-        showStats = false
-      }
-    "
-  >
+  <CModal size="lg" :visible="showStats" @close="showStats = false">
     <CModalHeader>
       <CModalTitle>{{ $t('message.statistics') }}</CModalTitle>
     </CModalHeader>
@@ -23,13 +15,13 @@
         </CTabList>
         <CTabContent class="scroll">
           <CTabPanel class="p-3" itemKey="game-stats">
-            <GameStats :games="games" />
+            <GameStats />
           </CTabPanel>
           <CTabPanel class="p-3" itemKey="player-stats">
-            <PlayerStats :games="games" />
+            <PlayerStats />
           </CTabPanel>
           <CTabPanel class="p-3" itemKey="game-history">
-            <GameHistory :games="games" />
+            <GameHistory />
           </CTabPanel>
         </CTabContent>
       </CTabs>
@@ -49,15 +41,10 @@ import { ref } from 'vue'
 import 'firebase/compat/firestore'
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
 import PlayerStats from '@/components/stats/player-stats/PlayerStats.vue'
-import type { Game } from '@/models/Game'
 import GameHistory from '@/components/stats/game-history/GameHistory.vue'
 import GameStats from '@/components/stats/game-stats/GameStats.vue'
 
 const showStats = ref<boolean>(false)
-
-defineProps<{
-  games: Game[] | undefined
-}>()
 </script>
 
 <style scoped>

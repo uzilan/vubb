@@ -59,16 +59,13 @@
 
 <script setup lang="ts">
 import { CFormSelect } from '@coreui/vue/dist/esm/components/form'
-import type { Game } from '@/models/Game'
 import { Stats } from '@/components/stats/Stats'
 import { ref, watch } from 'vue'
 import { CChart } from '@coreui/vue-chartjs'
+import { useGamesStore } from '@/stores/GamesStore'
 
-const props = defineProps<{
-  games: Game[] | undefined
-}>()
-
-const stats = props.games ? new Stats(props.games) : undefined
+const gamesStore = useGamesStore()
+const stats = gamesStore.games ? new Stats(gamesStore.games) : undefined
 const selectedPlayer = ref<string | undefined>()
 const max = ref<number>()
 const min = ref<number>()

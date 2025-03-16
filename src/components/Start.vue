@@ -7,7 +7,7 @@
   <Auth @loginDone="loadStats" @logoutDone="playersStore.reset" />
 
   <template v-if="authStore.user">
-    <Stats :games="games" />
+    <Stats />
 
     <div v-if="!playersStore.players.length" class="players-wrapper">
       <div class="players">
@@ -21,7 +21,9 @@
           placeholder=""
           v-model="playersStore.numberOfPlayers"
         />&nbsp;
-        <CButton color="primary" @click="initPlayers()">{{ $t('message.ok') }}</CButton>
+        <CButton color="primary" @click="playersStore.initPlayers()">{{
+          $t('message.ok')
+        }}</CButton>
       </div>
     </div>
     <div v-if="playersStore.players.length > 0" class="game" key="players.length">
@@ -82,44 +84,24 @@ import { firebaseConfig } from '@/credentials'
 import LongerBoard from '@/components/LongerBoard.vue'
 import InstructionsWrapper from '@/components/instructions/InstructionsWrapper.vue'
 import ResetWrapper from '@/components/ResetWrapper.vue'
+import { useGamesStore } from '@/stores/GamesStore'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
+const gamesStore = useGamesStore()
 
-const initPlayers = () => {
-  for (let i = 0; i < playersStore.numberOfPlayers; i++) {
-    playersStore.players.push({
-      name: '',
-      points: new Array(7).fill(null),
-      longerPoints: new Array(13).fill(null)
-    })
-  }
-}
-
-const games = ref<Game[]>()
 const loadStats = () => {
   if (!authStore.user) {
     return
   }
 
-  firebase
-    .firestore()
-    .collection('games')
-    .get()
-    .then((data) => {
-      games.value = data.docs.map((doc) => ({
-        playerNames: doc.get('playerNames'),
-        rows: doc.get('rows'),
-        winner: doc.get('winner'),
-        date: doc.get('date')
-      }))
-    })
+  gamesStore.loadGames()
 }
 
 const showSaved = ref<boolean>(false)
 const saveGame = (game: Game) => {
-  firebase.firestore().collection('games').add(game)
+  gamesStore.saveGame(game)
   playersStore.reset()
   loadStats()
   showSaved.value = true

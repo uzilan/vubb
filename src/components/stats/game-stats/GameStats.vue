@@ -203,8 +203,9 @@
                 </li>
               </ol>
             </div>
-          </div> </CCol
-        ><CCol lg="3" xs="6">
+          </div>
+        </CCol>
+        <CCol lg="3" xs="6">
           <div class="wrapwrapper">
             <h4 class="center">
               <CIcon :icon="cilMinus" size="l" />
@@ -257,18 +258,15 @@
 </template>
 
 <script setup lang="ts">
-import type { Game } from '@/models/Game'
 import { Stats } from '@/components/stats/Stats'
 import { CCol, CContainer, CRow } from '@coreui/vue/dist/esm/components/grid'
 import { CChart } from '@coreui/vue-chartjs'
 import { cilCircle, cilMinus } from '@coreui/icons'
 import { CIcon } from '@coreui/icons-vue'
+import { useGamesStore } from '@/stores/GamesStore'
 
-const props = defineProps<{
-  games: Game[] | undefined
-}>()
-
-const stats = props.games ? new Stats(props.games) : undefined
+const gamesStore = useGamesStore()
+const stats = gamesStore.games ? new Stats(gamesStore.games) : undefined
 
 const options = {
   legend: {

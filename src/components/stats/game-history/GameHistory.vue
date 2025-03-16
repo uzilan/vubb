@@ -3,17 +3,15 @@
 </template>
 
 <script setup lang="ts">
-import type { Game } from '@/models/Game'
 import MiniGame from '@/components/stats/game-history/MiniGame.vue'
 import { DateTime } from 'luxon'
+import { useGamesStore } from '@/stores/GamesStore'
 
-const props = defineProps<{
-  games: Game[] | undefined
-}>()
+const gamesStore = useGamesStore()
 
 const sortedGames = () => {
-  if (!props.games) return
-  return [...props.games].sort((a, b) => compareDates(a.date, b.date))
+  if (!gamesStore.games) return
+  return [...gamesStore.games].sort((a, b) => compareDates(a.date, b.date))
 }
 const compareDates = (a: string, b: string) => {
   const date1 = DateTime.fromISO(a)
