@@ -5,7 +5,8 @@ import firebase from 'firebase/compat/app'
 
 export const useGamesStore = defineStore('gamesStore', {
   state: () => ({
-    games: ref<Game[]>()
+    games: ref<Game[]>(),
+    showSaved: ref<boolean>(false)
   }),
   actions: {
     loadGames() {
@@ -24,6 +25,10 @@ export const useGamesStore = defineStore('gamesStore', {
     },
     saveGame(game: Game) {
       firebase.firestore().collection('games').add(game)
+      this.showSaved = true
+    },
+    showSaveDone() {
+      this.showSaved = false
     }
   }
 })

@@ -66,9 +66,9 @@
     </CTableBody>
   </CTable>
   <div>
-    <CButton v-if="lastGamePlayed" @click="saveGame()" color="primary">{{
-      $t('message.save')
-    }}</CButton>
+    <CButton v-if="lastGamePlayed" @click="emit('saveGame')" color="primary"
+      >{{ $t('message.save') }}
+    </CButton>
   </div>
 </template>
 <script setup lang="ts">
@@ -86,8 +86,6 @@ import { CIcon } from '@coreui/icons-vue'
 import type { Player } from '@/models/Player'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref, watch } from 'vue'
-import type { Winner } from '@/models/Winner'
-import { DateTime } from 'luxon'
 import { usePlayersStore } from '@/stores/PlayersStore'
 
 const playersStore = usePlayersStore()
@@ -112,34 +110,6 @@ watch(
 )
 
 const emit = defineEmits(['saveGame'])
-
-const winner = (): Winner => {
-  const playersAndSums = [...playersStore.players].map((player) => ({
-    name: player.name,
-    points: sum(player)
-  }))
-  return playersAndSums.sort((a, b) => a.points - b.points)[0]
-}
-
-const saveGame = () => {
-  const game = {
-    playerNames: playersStore.players.map((player) => player.name),
-    rows: playersStore.players.map((player) => ({
-      player: player.name,
-      ss: player.points[0] ?? 0,
-      sl: player.points[1] ?? 0,
-      ll: player.points[2] ?? 0,
-      sss: player.points[3] ?? 0,
-      ssl: player.points[4] ?? 0,
-      sll: player.points[5] ?? 0,
-      lll: player.points[6] ?? 0,
-      sum: sum(player)
-    })),
-    winner: winner(),
-    date: DateTime.now().toFormat('yyyy-MM-dd')
-  }
-  emit('saveGame', game)
-}
 </script>
 <style scoped>
 .name {

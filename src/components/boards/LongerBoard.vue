@@ -9,7 +9,6 @@
         <CTableHeaderCell scope="col">ooo</CTableHeaderCell>
         <CTableHeaderCell scope="col">oo-</CTableHeaderCell>
         <CTableHeaderCell scope="col">o--</CTableHeaderCell>
-        <CTableHeaderCell scope="col">o--</CTableHeaderCell>
         <CTableHeaderCell scope="col">---</CTableHeaderCell>
         <CTableHeaderCell scope="col">oooo</CTableHeaderCell>
         <CTableHeaderCell scope="col">ooo-</CTableHeaderCell>
