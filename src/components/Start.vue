@@ -1,30 +1,9 @@
 <template>
   <InstructionsWrapper />
-
-  <CModal
-    size="l"
-    alignment="center"
-    :backdrop="true"
-    :keyboard="false"
-    :visible="showReset"
-    @close="showReset = false"
-  >
-    <CModalHeader>
-      <CModalTitle>{{ $t('message.resetCertainty') }}</CModalTitle>
-    </CModalHeader>
-    <CModalBody>
-      <Reset @reset="resetGame()" />
-    </CModalBody>
-  </CModal>
+  <ResetWrapper @reset="resetGame" />
 
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
-  <CButton
-    v-if="authStore.user && playersStore.players.length"
-    color="primary"
-    @click="showReset = true"
-    class="reset-button"
-    >{{ $t('message.restart') }}
-  </CButton>
+
   <Auth @loginDone="loadStats" @logoutDone="resetGame" />
 
   <template v-if="authStore.user">
@@ -101,19 +80,12 @@ import { useAuthStore } from '@/stores/AuthStore'
 import { usePlayersStore } from '@/stores/PlayersStore'
 import { firebaseConfig } from '@/credentials'
 import LongerBoard from '@/components/LongerBoard.vue'
-import {
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle
-} from '@coreui/vue/dist/esm/components/modal'
-import Reset from '@/components/Certainty.vue'
 import InstructionsWrapper from '@/components/instructions/InstructionsWrapper.vue'
+import ResetWrapper from '@/components/ResetWrapper.vue'
 // import { firebaseConfig } from '@/credentials-dev'
 
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
-const showReset = ref<boolean>(false)
 
 const numberOfPlayers = ref<number>(0)
 
@@ -130,7 +102,6 @@ const initPlayers = () => {
 const resetGame = () => {
   numberOfPlayers.value = 0
   playersStore.players = []
-  showReset.value = false
 }
 
 const games = ref<Game[]>()
@@ -165,12 +136,6 @@ firebase.initializeApp(firebaseConfig)
 loadStats()
 </script>
 <style scoped lang="scss">
-.reset-button {
-  position: absolute;
-  top: 0;
-  left: 110px;
-}
-
 .players-wrapper {
   width: 100%;
   text-align: center;
