@@ -21,6 +21,7 @@ export const inter = createI18n({
         name: 'Name',
         sum: 'Sum',
         save: 'Save results',
+        illegalPoints: 'Points must be divisible by 5.',
 
         instructions: 'Instructions',
         whatIsUbb: 'What is UBB?',
@@ -138,6 +139,7 @@ export const inter = createI18n({
         name: 'Namn',
         sum: 'Summa',
         save: 'Spara resultat',
+        illegalPoints: 'Poäng måste vara delbara med 5.',
 
         instructions: 'Instruktioner',
         whatIsUbb: 'Vad är UBB?',

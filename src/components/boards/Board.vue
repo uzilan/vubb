@@ -1,4 +1,7 @@
 <template>
+  <CAlert color="danger" dismissible :visible="illigalPoints" class="alert">{{
+    $t('message.illegalPoints')
+  }}</CAlert>
   <CTable>
     <CTableHead>
       <CTableRow>
@@ -40,6 +43,7 @@
             label=""
             placeholder=""
             v-model="player.points[pointIndex]"
+            @blur="validatePoints($event, playerIndex, pointIndex)"
             key="pointIndex"
           />
         </CTableDataCell>
@@ -70,8 +74,24 @@ import { usePlayersStore } from '@/stores/PlayersStore'
 import CellWithIcons from '@/components/boards/CellWithIcons.vue'
 import CIcon from '@coreui/icons-vue'
 import { cilChevronRight } from '@coreui/icons'
+import { CAlert } from '@coreui/vue/dist/esm/components/alert'
 
 const playersStore = usePlayersStore()
+
+const illigalPoints = ref<boolean>(false)
+
+const validatePoints = (evt: FocusEvent, playerIndex: number, pointIndex: number) => {
+  const target = evt.target as HTMLInputElement
+  let value = Number(target.value)
+
+  if (value % 5 !== 0) {
+    value = 0
+    illigalPoints.value = true
+  } else {
+    illigalPoints.value = false
+  }
+  playersStore.players[playerIndex].points[pointIndex] = value
+}
 
 const sum = (player: Player): number => {
   return player.points.reduce((curr: number, acc: number) => Number(acc) + Number(curr), 0)
@@ -143,5 +163,12 @@ td {
 
 .dealer-marker {
   display: flex;
+}
+
+.alert {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>
