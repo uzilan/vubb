@@ -138,7 +138,7 @@ td {
 }
 
 .dealer-space {
-  width: 22px;
+  width: 20px;
 }
 
 .dealer-marker {
