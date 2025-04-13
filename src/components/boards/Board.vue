@@ -20,7 +20,7 @@
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell>
-          <div v-if="dealerNumber === playerIndex" class="dealer">
+          <div v-if="dealerIndex === playerIndex" class="dealer">
             <CIcon :icon="cilChevronRight" size="xl" class="dealer-icon" />
           </div>
           <div v-else class="dealer-space">&nbsp;</div>
@@ -99,25 +99,21 @@ const sum = (player: Player): number => {
 
 const lastGamePlayed = ref<boolean>(false)
 
-const dealerNumber = ref(0)
+const dealerIndex = ref(0)
 
 watch(
   playersStore.players,
   () => {
     const lasts = playersStore.players.map((player) => player.points[6])
     const registeredLasts = lasts.filter((points) => points > 0)
-    const isNullEmptyOrZero = (x: number) => x === null || x === 0 || String(x) === ''
     lastGamePlayed.value = registeredLasts.length > 0
 
-    const games = []
-    for (let i = 0; i < 7; i++) {
-      const map = playersStore.players.map((player) => player.points[i])
-      const items = map.some((x) => !isNullEmptyOrZero(x))
-      games.push(items)
-    }
-
-    const currentGame = games.lastIndexOf(true) + 1
-    dealerNumber.value = currentGame % playersStore.players.length
+    const isNullEmptyOrZero = (x: number) => x === null || x === 0 || String(x) === ''
+    const playedGames = playersStore.players[0].points.map((_, i) =>
+      playersStore.players.some((player) => !isNullEmptyOrZero(player.points[i]))
+    )
+    const currentGame = playedGames.lastIndexOf(true) + 1
+    dealerIndex.value = currentGame % playersStore.players.length
   },
   {
     deep: true,
