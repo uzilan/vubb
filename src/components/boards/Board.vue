@@ -1,10 +1,11 @@
 <template>
-  <CAlert color="danger" dismissible :visible="illigalPoints" class="alert">{{
-    $t('message.illegalPoints')
-  }}</CAlert>
+  <CAlert color="danger" dismissible :visible="illigalPoints" class="alert"
+    >{{ $t('message.illegalPoints') }}
+  </CAlert>
   <CTable>
     <CTableHead>
       <CTableRow>
+        <CTableHeaderCell scope="col" />
         <CTableHeaderCell scope="col" class="name">{{ $t('message.name') }}</CTableHeaderCell>
         <CellWithIcons icons="oo" />
         <CellWithIcons icons="o-" />
@@ -18,23 +19,22 @@
     </CTableHead>
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
-        <CTableDataCell v-model="player.name">
-          <div class="dealer">
-            <div v-if="dealerNumber === playerIndex" class="dealer-marker">
-              <CIcon :icon="cilChevronRight" size="xl" class="dealer-icon" />
-            </div>
-            &nbsp;
-            <div v-else class="dealer-space">&nbsp;</div>
-            <CFormInput
-              type="text"
-              id="playerName"
-              label=""
-              placeholder=""
-              v-model="player.name"
-              key="playerIndex"
-              >{{ player.name }}
-            </CFormInput>
+        <CTableDataCell>
+          <div v-if="dealerNumber === playerIndex" class="dealer">
+            <CIcon :icon="cilChevronRight" size="xl" class="dealer-icon" />
           </div>
+          <div v-else class="dealer-space">&nbsp;</div>
+        </CTableDataCell>
+        <CTableDataCell v-model="player.name">
+          <CFormInput
+            type="text"
+            id="playerName"
+            label=""
+            placeholder=""
+            v-model="player.name"
+            key="playerIndex"
+            >{{ player.name }}
+          </CFormInput>
         </CTableDataCell>
         <CTableDataCell v-for="(_, pointIndex) in player.points" v-bind:key="pointIndex">
           <CFormInput
@@ -149,20 +149,15 @@ td {
 .dealer {
   display: flex;
   align-items: center;
+  height: 36px;
 }
 
 .dealer-icon {
   color: #ffffff;
-  padding-left: 0;
-  margin-left: -5px;
 }
 
 .dealer-space {
   width: 20px;
-}
-
-.dealer-marker {
-  display: flex;
 }
 
 .alert {
