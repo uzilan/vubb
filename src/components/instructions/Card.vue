@@ -1,3 +1,32 @@
+<!--
+  Component: Card.vue
+  Description: A way to render a card using a code to determine the rank and suit, according to the following logic:
+    jokers:
+      bj: black joker
+      rj: red joker
+    all other cards:
+      first letter denotes the suit:
+        c - clubs
+        d - diamonds
+        h - hearts
+        s - spades
+      second letter denotes the rank:
+        0 - 10
+        1 - ace
+        j - jack
+        q - queen
+        k - king
+        2-9 - card rank
+      examples:
+        ck - king of clubs
+        d0 - 10 of diamonds
+        h1 - ace of hearts
+        s8 - eight of spades
+  Props:
+    - code (String): The code to translate into rank and suit.
+  Usage:
+        <Card code="hq" height="60px" />
+-->
 <template>
   <img v-bind:src="imgSrc" v-bind:alt="alt" :height="height" />
 </template>
