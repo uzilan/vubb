@@ -18,13 +18,13 @@
     "@coreui/icons-vue": "^2.2.0",
     "@coreui/vue": "^5.4.0",
     "@coreui/vue-chartjs": "^3.0.0",
-    "firebase": "^10.14.1",
+    "firebase": "^11.6.0",
     "firebase-admin": "^12.6.0",
     "luxon": "^3.5.0",
     "pinia": "^2.2.4",
     "pinia-plugin-persistedstate": "^4.1.1",
     "vue": "^3.5.12",
-    "vue-i18n": "^10.0.5"
+    "vue-i18n": "^10.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
@@ -32,7 +32,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/luxon": "^3.4.2",
     "@types/node": "^22.10.5",
-    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue": "^5.2.3",
     "@vue/eslint-config-prettier": "^10.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
@@ -44,8 +44,8 @@
     "sass": "^1.83.1",
     "typescript": "~5.6.3",
     "typescript-eslint": "^8.19.1",
-    "vite": "^5.4.8",
-    "vite-plugin-vue-devtools": "^7.4.6",
+    "vite": "^6.3.2",
+    "vite-plugin-vue-devtools": "^7.7.5",
     "vue-tsc": "^2.1.6"
   }
 }
