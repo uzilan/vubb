@@ -53,6 +53,18 @@
         </CTableDataCell>
         <CTableDataCell class="sum">{{ sum(player) }}</CTableDataCell>
       </CTableRow>
+      <CTableRow class="bottom-row">
+        <CTableDataCell></CTableDataCell>
+        <CTableDataCell>{{ $t('message.dealtCards') }}</CTableDataCell>
+        <CTableDataCell class="bottom-cell">7</CTableDataCell>
+        <CTableDataCell class="bottom-cell">8</CTableDataCell>
+        <CTableDataCell class="bottom-cell">9</CTableDataCell>
+        <CTableDataCell class="bottom-cell">10</CTableDataCell>
+        <CTableDataCell class="bottom-cell">10</CTableDataCell>
+        <CTableDataCell class="bottom-cell">10</CTableDataCell>
+        <CTableDataCell class="bottom-cell">10</CTableDataCell>
+        <CTableDataCell></CTableDataCell>
+      </CTableRow>
     </CTableBody>
   </CTable>
   <div>
@@ -166,5 +178,24 @@ td {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.bottom-row {
+  height: 20px;
+}
+
+.bottom-row td {
+  padding: 2px !important;
+  height: 20px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+}
+
+.bottom-cell {
+  background-color: #f8f9fa;
+  border: none;
 }
 </style>
