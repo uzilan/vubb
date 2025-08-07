@@ -40,3 +40,18 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Features
+
+### Player Name Auto-Complete
+
+The application now includes auto-complete functionality for player names:
+
+- **Auto-complete suggestions**: When entering player names, the system will show suggestions based on previously used names from Firebase
+- **Keyboard navigation**: Use arrow keys to navigate through suggestions and Enter to select
+- **Mouse interaction**: Click on suggestions to select them
+- **Custom names**: You can still enter new names that aren't in the suggestions
+- **Automatic trimming**: Names are automatically trimmed of whitespace when selected or when the input loses focus
+- **Real-time filtering**: Suggestions are filtered as you type
+
+The auto-complete feature works across all game board types (UBB, Long UBB, and Longer UBB).

@@ -26,15 +26,7 @@
           <div v-else class="dealer-space">&nbsp;</div>
         </CTableDataCell>
         <CTableDataCell v-model="player.name">
-          <CFormInput
-            type="text"
-            id="playerName"
-            label=""
-            placeholder=""
-            v-model="player.name"
-            key="playerIndex"
-            >{{ player.name }}
-          </CFormInput>
+          <PlayerNameInput v-model="player.name" :inputId="`playerName-${playerIndex}`" />
         </CTableDataCell>
         <CTableDataCell v-for="(_, pointIndex) in player.points" v-bind:key="pointIndex">
           <CFormInput
@@ -91,6 +83,12 @@ import CellWithIcons from '@/components/boards/CellWithIcons.vue'
 import CIcon from '@coreui/icons-vue'
 import { cilChevronRight } from '@coreui/icons'
 import { CAlert } from '@coreui/vue/dist/esm/components/alert'
+import PlayerNameInput from '@/components/PlayerNameInput.vue'
+
+// Component name for linting
+defineOptions({
+  name: 'GameBoard'
+})
 
 const playersStore = usePlayersStore()
 

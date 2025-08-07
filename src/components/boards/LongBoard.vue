@@ -15,15 +15,7 @@
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell v-model="player.name" class="name">
-          <CFormInput
-            type="text"
-            id="playerName"
-            label=""
-            placeholder=""
-            v-model="player.name"
-            key="playerIndex"
-            >{{ player.name }}
-          </CFormInput>
+          <PlayerNameInput v-model="player.name" :inputId="`playerName-${playerIndex}`" />
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.points" v-bind:key="pointIndex">
           <CFormCheck id="flexCheckDefault" />
@@ -41,9 +33,15 @@ import {
   CTableHeaderCell,
   CTableRow
 } from '@coreui/vue'
-import { CFormCheck, CFormInput } from '@coreui/vue/dist/esm/components/form'
+import { CFormCheck } from '@coreui/vue/dist/esm/components/form'
 import { usePlayersStore } from '@/stores/PlayersStore'
 import CellWithIcons from '@/components/boards/CellWithIcons.vue'
+import PlayerNameInput from '@/components/PlayerNameInput.vue'
+
+// Component name for linting
+defineOptions({
+  name: 'LongGameBoard'
+})
 
 const playersStore = usePlayersStore()
 </script>
