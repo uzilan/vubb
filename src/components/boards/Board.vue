@@ -42,7 +42,11 @@
             id="numberOfPlayers"
             label=""
             placeholder=""
-            v-model="player.points[pointIndex]"
+            :value="player.points[pointIndex] === 0 ? '' : player.points[pointIndex]"
+            @input="
+              (event) =>
+                (player.points[pointIndex] = Number((event.target as HTMLInputElement).value) || 0)
+            "
             @blur="validatePoints($event, playerIndex, pointIndex)"
             key="pointIndex"
           />
@@ -85,12 +89,13 @@ const validatePoints = (evt: FocusEvent, playerIndex: number, pointIndex: number
   let value = Number(target.value)
 
   if (value % 5 !== 0) {
-    value = 0
+    target.value = ''
+    playersStore.players[playerIndex].points[pointIndex] = 0
     illigalPoints.value = true
   } else {
     illigalPoints.value = false
+    playersStore.players[playerIndex].points[pointIndex] = value
   }
-  playersStore.players[playerIndex].points[pointIndex] = value
 }
 
 const sum = (player: Player): number => {
