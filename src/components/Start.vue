@@ -141,6 +141,17 @@ th,
   gap: 10px;
 }
 
+/* Mobile portrait responsive design */
+@media (max-width: 768px) and (orientation: portrait) {
+  .tab-buttons {
+    position: static;
+    transform: none;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}
+
 .radio-group {
   display: flex;
   align-items: center;
