@@ -141,8 +141,8 @@ th,
   gap: 10px;
 }
 
-/* Mobile portrait responsive design */
-@media (max-width: 768px) and (orientation: portrait) {
+/* Mobile responsive design */
+@media (max-width: 430px) {
   .tab-buttons {
     position: static;
     transform: none;
@@ -156,6 +156,10 @@ th,
   display: flex;
   align-items: center;
   margin-right: 20px;
+}
+
+.radio-group:first-child {
+  padding-left: 10px;
 }
 
 .tab-radio {
