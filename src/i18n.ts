@@ -39,7 +39,7 @@ export const inter = createI18n({
         ubbIsPlayedInSevenSeries:
           'UBB is played in seven sets. In each set, one must build different series',
         set: 'Set',
-        dealtCards: 'Dealt cards',
+        dealtCards: 'Dealt cards:',
         description: 'Description',
         example: 'Example',
         twoTrios: 'Two trios',
