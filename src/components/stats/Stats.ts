@@ -35,11 +35,12 @@ export class Stats {
     return this.playerRows(player).map((row) => row.sum)
   }
 
-  private frequencies = (arr: any[]): NameAndValue[] => {
-    const reduced = arr.reduce((a, v) => {
+  private frequencies = (arr: (string | number | null)[]): NameAndValue[] => {
+    const filteredArr = arr.filter((item): item is string | number => item !== null)
+    const reduced = filteredArr.reduce((a, v) => {
       a[v] = (a[v] ?? 0) + 1
       return a
-    }, {})
+    }, {} as Record<string | number, number>)
     const entries = Object.entries(reduced)
     return entries.map((entry) => ({ name: entry[0], value: Number(entry[1]) }))
   }

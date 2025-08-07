@@ -2,7 +2,7 @@
   <div class="player">
     <CFormSelect v-model="selectedPlayer">
       <option value="">{{ $t('message.choosePlayer') }}</option>
-      <option v-for="player of stats?.players()" key="player">{{ player }}</option>
+      <option v-for="player of stats?.players()" :key="player">{{ player }}</option>
     </CFormSelect>
   </div>
   <template v-if="selectedPlayer && selectedPlayer !== ''">

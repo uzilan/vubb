@@ -9,8 +9,10 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "format": "prettier --write src/",
+    "test": "echo \"No tests specified\" && exit 0",
+    "prepare": "husky"
   },
   "dependencies": {
     "@coreui/coreui": "^5.2.0",
@@ -39,6 +41,7 @@
     "eslint": "^9.25.0",
     "eslint-plugin-vue": "^10.0.0",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
