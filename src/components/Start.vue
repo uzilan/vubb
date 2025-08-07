@@ -4,7 +4,7 @@
 
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
 
-  <Auth @loginDone="loadStats" @logoutDone="playersStore.reset" />
+  <Auth @logoutDone="playersStore.reset" />
 
   <template v-if="authStore.user">
     <Stats />
@@ -34,28 +34,43 @@ import { useGamesStore } from '@/stores/GamesStore'
 import Players from '@/components/Players.vue'
 import Boards from '@/components/boards/Boards.vue'
 import GameSaved from '@/components/GameSaved.vue'
+import { onMounted } from 'vue'
+import type { User } from '@firebase/auth'
 // import { firebaseConfig } from '@/credentials-dev'
+
+// Component name for linting
+defineOptions({
+  name: 'StartPage'
+})
 
 const authStore = useAuthStore()
 const playersStore = usePlayersStore()
 const gamesStore = useGamesStore()
 
-const loadStats = () => {
-  if (!authStore.user) {
-    return
-  }
-
-  gamesStore.loadGames()
-}
-
 const saveGame = () => {
   gamesStore.saveGame(playersStore.game(firebase?.auth()?.currentUser?.displayName ?? 'N/A'))
   playersStore.reset()
-  loadStats()
 }
 
 firebase.initializeApp(firebaseConfig)
-loadStats()
+
+// Listen for authentication state changes
+onMounted(() => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in
+      authStore.user = user as User // Type assertion to handle Firebase compat types
+      // Get the user's ID token for API calls if needed
+      user.getIdToken().then((token) => {
+        authStore.token = token
+      })
+    } else {
+      // User is signed out
+      authStore.user = null
+      authStore.token = null
+    }
+  })
+})
 </script>
 
 <style scoped lang="scss">

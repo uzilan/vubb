@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app'
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
-    user: ref<User>(),
-    token: ref<Promise<firebase.auth.UserCredential>>()
+    user: ref<User | null>(null),
+    token: ref<string | null>(null)
   })
 })

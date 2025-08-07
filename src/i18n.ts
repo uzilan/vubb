@@ -8,7 +8,6 @@ export const inter = createI18n({
       message: {
         welcome: 'Welcome to UBB!',
         loginWithGoogle: 'Log in with Google',
-        loginWithTwitter: 'Log in with Twitter',
         logout: 'Log out',
         restart: 'Restart',
         numberOfPlayers: 'Players',
@@ -126,7 +125,6 @@ export const inter = createI18n({
       message: {
         welcome: 'Välkommen till UBB!',
         loginWithGoogle: 'Logga in med Google',
-        loginWithTwitter: 'Logga in med Twitter',
         logout: 'Logga ut',
         restart: 'Starta om',
         numberOfPlayers: 'Spelare',

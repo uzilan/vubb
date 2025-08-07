@@ -1,5 +1,5 @@
 <template>
-  <CButton class="stats" color="primary" @click="showStats = true"
+  <CButton class="stats" color="primary" @click="openStats"
     >{{ $t('message.statistics') }}
   </CButton>
   <CModal size="lg" :visible="showStats" @close="showStats = false">
@@ -43,8 +43,16 @@ import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/
 import PlayerStats from '@/components/stats/player-stats/PlayerStats.vue'
 import GameHistory from '@/components/stats/game-history/GameHistory.vue'
 import GameStats from '@/components/stats/game-stats/GameStats.vue'
+import { useGamesStore } from '@/stores/GamesStore'
 
 const showStats = ref<boolean>(false)
+const gamesStore = useGamesStore()
+
+const openStats = () => {
+  showStats.value = true
+  // Load statistics data when the modal is opened
+  gamesStore.loadGames()
+}
 </script>
 
 <style scoped>
