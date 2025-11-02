@@ -8,6 +8,10 @@
       v-model="inputValue"
       @input="handleInput"
       @blur="handleBlur"
+      autocomplete="off"
+      :autocapitalize="'off'"
+      :autocorrect="'off'"
+      :spellcheck="false"
     />
   </div>
 </template>
