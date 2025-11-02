@@ -9,7 +9,7 @@
       @input="handleInput"
       @blur="handleBlur"
       autocomplete="off"
-      :autocapitalize="'off'"
+      :autocapitalize="'on'"
       :autocorrect="'off'"
       :spellcheck="false"
     />
