@@ -7,7 +7,12 @@
       <CModalTitle>{{ $t('message.statistics') }}</CModalTitle>
     </CModalHeader>
     <CModalBody>
-      <CTabs activeItemKey="game-stats">
+      <div v-if="gamesStore.loading" class="text-center p-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <CTabs v-else activeItemKey="game-stats">
         <CTabList variant="tabs">
           <CTab itemKey="game-stats">{{ $t('message.statistics') }}</CTab>
           <CTab itemKey="player-stats">{{ $t('message.players') }}</CTab>

@@ -6,23 +6,26 @@ import firebase from 'firebase/compat/app'
 export const useGamesStore = defineStore('gamesStore', {
   state: () => ({
     games: ref<Game[]>(),
-    showSaved: ref<boolean>(false)
+    showSaved: ref<boolean>(false),
+    loading: ref<boolean>(false)
   }),
   actions: {
-    loadGames() {
-      firebase
-        .firestore()
-        .collection('games')
-        .get()
-        .then((data) => {
-          this.games = data.docs.map((doc) => ({
-            playerNames: doc.get('playerNames'),
-            rows: doc.get('rows'),
-            winner: doc.get('winner'),
-            date: doc.get('date'),
-            savedBy: doc.get('savedBy')
-          }))
-        })
+    async loadGames() {
+      this.loading = true
+      try {
+        const snapshot = await firebase.firestore().collection('games').get()
+        this.games = snapshot.docs.map((doc) => ({
+          playerNames: doc.get('playerNames'),
+          rows: doc.get('rows'),
+          winner: doc.get('winner'),
+          date: doc.get('date'),
+          savedBy: doc.get('savedBy')
+        }))
+      } catch (error) {
+        console.error('Error loading games:', error)
+      } finally {
+        this.loading = false
+      }
     },
     saveGame(game: Game) {
       firebase.firestore().collection('games').add(game)
