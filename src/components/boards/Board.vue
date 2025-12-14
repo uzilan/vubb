@@ -25,7 +25,7 @@
           </div>
           <div v-else class="dealer-space">&nbsp;</div>
         </CTableDataCell>
-        <CTableDataCell v-model="player.name">
+        <CTableDataCell>
           <PlayerNameInput v-model="player.name" :inputId="`playerName-${playerIndex}`" />
         </CTableDataCell>
         <CTableDataCell v-for="(_, pointIndex) in player.points" v-bind:key="pointIndex">

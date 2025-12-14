@@ -20,7 +20,7 @@
     </CTableHead>
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
-        <CTableDataCell v-model="player.name">
+        <CTableDataCell>
           <PlayerNameInput v-model="player.name" :inputId="`playerName-${playerIndex}`" />
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.longerPoints" v-bind:key="pointIndex">
