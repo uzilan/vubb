@@ -5,8 +5,7 @@
       :id="inputId"
       label=""
       placeholder=""
-      v-model="inputValue"
-      @input="handleInput"
+      v-model="model"
       @blur="handleBlur"
       autocomplete="off"
       :autocapitalize="'on'"
@@ -18,7 +17,7 @@
 
 <script setup lang="ts">
 import { CFormInput } from '@coreui/vue/dist/esm/components/form'
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 
 interface Props {
   modelValue: string
@@ -31,27 +30,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(['update:modelValue'])
 
-const inputValue = ref(props.modelValue)
-
-const handleInput = () => {
-  emit('update:modelValue', inputValue.value)
-}
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: string) => emit('update:modelValue', value)
+})
 
 const handleBlur = () => {
   // Trim the input value when blurring
-  const trimmedValue = inputValue.value.trim()
-  if (trimmedValue !== inputValue.value) {
-    inputValue.value = trimmedValue
-    emit('update:modelValue', trimmedValue)
+  const trimmedValue = model.value.trim()
+  if (trimmedValue !== model.value) {
+    model.value = trimmedValue
   }
 }
-
-watch(
-  () => props.modelValue,
-  (newValue) => {
-    inputValue.value = newValue
-  }
-)
 </script>
 
 <style scoped>

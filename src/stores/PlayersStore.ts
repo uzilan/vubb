@@ -2,31 +2,16 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Player } from '@/models/Player'
 import { DateTime } from 'luxon'
-import firebase from 'firebase/compat/app'
 
 export const usePlayersStore = defineStore('playersStore', {
   state: () => ({
     numberOfPlayers: ref<number>(0),
     players: ref<Player[]>([]),
-    existingPlayerNames: ref<string[]>([])
   }),
   actions: {
     reset() {
       this.numberOfPlayers = 0
       this.players = []
-    },
-    async fetchExistingPlayerNames() {
-      try {
-        const snapshot = await firebase.firestore().collection('games').get()
-        const allNames = snapshot.docs.flatMap((doc) => doc.get('playerNames') || [])
-        const uniqueNames = [...new Set(allNames.map((name) => name.trim()))].filter(
-          (name) => name.length > 0
-        )
-        this.existingPlayerNames = uniqueNames.sort()
-      } catch (error) {
-        console.error('Error fetching existing player names:', error)
-        this.existingPlayerNames = []
-      }
     },
     initPlayers() {
       for (let i = 0; i < this.numberOfPlayers; i++) {

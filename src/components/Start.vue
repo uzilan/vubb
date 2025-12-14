@@ -101,8 +101,6 @@ onMounted(() => {
       user.getIdToken().then((token) => {
         authStore.token = token
       })
-      // Fetch existing player names for auto-complete
-      playersStore.fetchExistingPlayerNames()
     } else {
       // User is signed out
       authStore.user = null
