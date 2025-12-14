@@ -8,9 +8,7 @@
     </CModalHeader>
     <CModalBody>
       <div v-if="gamesStore.loading" class="text-center p-4">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+        <CSpinner color="primary" />
       </div>
       <CTabs v-else activeItemKey="game-stats">
         <CTabList variant="tabs">
@@ -45,6 +43,7 @@ import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref } from 'vue'
 import 'firebase/compat/firestore'
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/vue/dist/esm/components/tabs'
+import { CSpinner } from '@coreui/vue/dist/esm/components/spinner'
 import PlayerStats from '@/components/stats/player-stats/PlayerStats.vue'
 import GameHistory from '@/components/stats/game-history/GameHistory.vue'
 import GameStats from '@/components/stats/game-stats/GameStats.vue'
