@@ -156,6 +156,13 @@ export class Stats {
     return placements.slice(0, 5)
   }
 
+  playerAverages = (): NameAndValue[] => {
+    return this.players()
+      .filter((player) => (this.numberOfGames(player) ?? 0) >= 5)
+      .map((player) => ({ name: player, value: this.averagePoints(player) ?? 0 }))
+      .sort((a, b) => b.value - a.value)
+  }
+
   winners = (): NameAndValue[] => {
     const winners = this.games.map((game) => game.winner.name.trim())
     const frequencies = this.frequencies(winners)

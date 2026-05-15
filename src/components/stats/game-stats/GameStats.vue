@@ -2,7 +2,7 @@
   <div class="cards">
     <CContainer fluid>
       <CRow>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.winningLeague') }}</h4>
             <div class="chart-wrapper">
@@ -10,7 +10,7 @@
             </div>
           </div>
         </CCol>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.mostPlayed') }}</h4>
             <div class="chart-wrapper">
@@ -20,7 +20,7 @@
         </CCol>
       </CRow>
       <CRow>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.pointLeague') }}</h4>
             <div class="chart-wrapper">
@@ -28,7 +28,7 @@
             </div>
           </div>
         </CCol>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.highestHand') }}</h4>
             <div class="chart-wrapper">
@@ -38,7 +38,7 @@
         </CCol>
       </CRow>
       <CRow>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.lowestWinningPoints') }}</h4>
             <div class="chart-wrapper">
@@ -46,7 +46,7 @@
             </div>
           </div>
         </CCol>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.highestDiff') }}</h4>
             <div class="chart-wrapper">
@@ -58,7 +58,20 @@
     </CContainer>
     <CContainer fluid>
       <CRow>
-        <CCol>
+        <CCol xs="12" lg="6">
+          <div class="stat-card">
+            <div class="set-masters-header">
+              <h4>{{ $t('message.playerAverages') }}</h4>
+              <CButton size="sm" variant="outline" color="secondary" @click="avgHighFirst = !avgHighFirst">
+                {{ avgHighFirst ? '↓' : '↑' }}
+              </CButton>
+            </div>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="playerAveragesData" />
+            </div>
+          </div>
+        </CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <div class="set-masters-header">
               <h4>{{ $t('message.setMasters') }}</h4>
@@ -75,7 +88,7 @@
     </CContainer>
     <CContainer fluid>
       <CRow>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.calendarOverview') }}</h4>
             <div class="chart-wrapper">
@@ -90,7 +103,7 @@
             </div>
           </div>
         </CCol>
-        <CCol>
+        <CCol xs="12" lg="6">
           <div class="stat-card">
             <h4>{{ $t('message.weekdayOverview') }}</h4>
             <div class="chart-wrapper">
@@ -112,10 +125,11 @@
 
 <script setup lang="ts">
 import { Stats, type NameAndValue } from '@/components/stats/Stats'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { CCol, CContainer, CRow } from '@coreui/vue/dist/esm/components/grid'
 import { CChart } from '@coreui/vue-chartjs'
 import { CFormSelect } from '@coreui/vue/dist/esm/components/form'
+import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { useGamesStore } from '@/stores/GamesStore'
 
 const gamesStore = useGamesStore()
@@ -151,6 +165,16 @@ const toChartData = (items: NameAndValue[] | undefined) => ({
   datasets: [{ data: items?.slice(0, 5).map((i) => i.value) ?? [], backgroundColor: chartColor }]
 })
 
+const avgHighFirst = ref(true)
+const playerAveragesData = computed(() => {
+  const items = stats?.playerAverages() ?? []
+  const sorted = avgHighFirst.value ? items : [...items].reverse()
+  const top5 = sorted.slice(0, 5)
+  return {
+    labels: top5.map((i) => `${i.name} (${i.value} | ${stats?.numberOfGames(i.name)}g)`),
+    datasets: [{ data: top5.map((i) => i.value), backgroundColor: chartColor }]
+  }
+})
 const winnersData = toChartData(stats?.winners())
 const highestsData = toChartData(stats?.highests())
 const highestHandData = toChartData(stats?.highestHand())
