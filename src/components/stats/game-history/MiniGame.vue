@@ -1,6 +1,7 @@
 <template>
+  <div class="stat-card">
   <div class="date">{{ props.game?.date }}</div>
-  <div class="table-wrapper">
+  <div class="table-scroll">
     <CTable>
       <CTableHead>
         <CTableRow>
@@ -34,6 +35,7 @@
       </CTableBody>
     </CTable>
   </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -59,24 +61,34 @@ const maybeWinner = (row: Row) => {
 </script>
 
 <style scoped>
-th {
-  font-weight: bold;
-  background-color: white !important;
-}
-
-.table-wrapper {
-  border: #1f1f1f 1px solid;
-  box-shadow: 2px 2px 2px #3298dc;
-  margin-bottom: 10px;
+.stat-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  margin: 10px 0;
+  background: #fff;
+  text-align: left;
 }
 
 .date {
-  font-size: 12px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+th {
   font-weight: bold;
+  background-color: white !important;
+  white-space: nowrap;
 }
 
 .winner {
-  background-color: #ffb3c2 !important;
+  background-color: #fcc8d2 !important;
 }
 
 .normal {

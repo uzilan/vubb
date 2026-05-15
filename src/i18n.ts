@@ -113,6 +113,8 @@ export const inter = createI18n({
         minPoints: 'Minimum Points',
         placements: 'Placements',
         setMasters: 'Set masters',
+        allYears: 'All years',
+        allMonths: 'All months',
 
         resetCertainty: 'Are you certain you want to restart?',
         reset: 'Restart',
@@ -233,6 +235,8 @@ export const inter = createI18n({
         minPoints: 'Minpoäng',
         placements: 'Placeringar',
         setMasters: 'Omgångsmästare',
+        allYears: 'Alla år',
+        allMonths: 'Alla månader',
 
         resetCertainty: 'Är du säker på att du vill starta om?',
         reset: 'Starta om',
