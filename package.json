@@ -19,6 +19,7 @@
     "@coreui/icons-vue": "^2.2.0",
     "@coreui/vue": "^5.4.1",
     "@coreui/vue-chartjs": "^3.0.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "firebase": "^12.6.0",
     "firebase-admin": "^13.6.0",
     "luxon": "^3.6.1",

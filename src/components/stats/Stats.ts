@@ -73,18 +73,11 @@ export class Stats {
   setAverages = (player: string | undefined): number[] | undefined => {
     if (!player) return
     const rows = this.playerRows(player)
-    const sums = { ss: 0, sl: 0, ll: 0, sss: 0, ssl: 0, sll: 0, lll: 0 }
-    rows.forEach((row: Row) => {
-      sums.ss += Number(row.ss)
-      sums.sl += Number(row.sl)
-      sums.ll += Number(row.ll)
-      sums.sss += Number(row.sss)
-      sums.ssl += Number(row.ssl)
-      sums.sll += Number(row.sll)
-      sums.lll += Number(row.lll)
+    const keys: (keyof Row)[] = ['ss', 'sl', 'll', 'sss', 'ssl', 'sll', 'lll']
+    return keys.map((key) => {
+      const values = rows.map((row) => Number(row[key]))
+      return Math.round(values.reduce((a, b) => a + b, 0) / rows.length)
     })
-
-    return Object.values(sums).map((x) => Math.round(x / rows.length))
   }
 
   setLeagues = () => {

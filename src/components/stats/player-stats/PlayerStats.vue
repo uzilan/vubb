@@ -20,38 +20,50 @@
     </div>
     <div>
       <CChart
-        type="bar"
-        :options="options"
+        type="radar"
+        :plugins="[radarLabelsPlugin]"
+        :options="radarOptions"
         :data="{
-          labels: [`oo`, 'o-', '--', 'ooo', 'oo-', 'o--', '---'],
+          labels: ['oo', 'o-', '--', 'ooo', 'oo-', 'o--', '---'],
           datasets: [
             {
               label: $t('message.averagePoints'),
-              data: setAverages ?? []
+              data: setAverages ?? [],
+              backgroundColor: 'rgba(50, 152, 220, 0.2)',
+              borderColor: 'rgba(50, 152, 220, 0.9)',
+              pointBackgroundColor: 'rgba(50, 152, 220, 0.9)'
             },
             {
               label: $t('message.maxPoints'),
-              data: setMaxes ?? []
+              data: setMaxes ?? [],
+              backgroundColor: 'rgba(220, 100, 100, 0.2)',
+              borderColor: 'rgba(220, 100, 100, 0.9)',
+              pointBackgroundColor: 'rgba(220, 100, 100, 0.9)'
             }
           ]
         }"
-        labels="months"
       />
     </div>
     <div>
       <CChart
-        type="bar"
-        :options="options"
+        type="pie"
+        :plugins="[pieLabelsPlugin]"
+        :options="doughnutOptions"
         :data="{
-          labels: [`1`, '2', '3', '4', '5'],
+          labels: ['1st', '2nd', '3rd', '4th', '5th'].map((label, i) => `${label} (${placements?.[i] ?? 0})`),
           datasets: [
             {
-              label: $t('message.placements'),
-              data: placements ?? []
+              data: placements ?? [],
+              backgroundColor: [
+                'rgba(255, 195, 0, 0.8)',
+                'rgba(180, 180, 180, 0.8)',
+                'rgba(180, 120, 60, 0.8)',
+                'rgba(100, 160, 220, 0.8)',
+                'rgba(160, 100, 200, 0.8)'
+              ]
             }
           ]
         }"
-        labels="months"
       />
     </div>
   </template>
@@ -80,6 +92,70 @@ const options = {
   }
 }
 
+const doughnutOptions = {
+  plugins: {
+    legend: { display: true, position: 'right' as const }
+  }
+}
+
+const pieLabelsPlugin = {
+  id: 'pieLabels',
+  afterDatasetsDraw(chart: any) {
+    const { ctx } = chart
+    chart.data.datasets.forEach((dataset: any, datasetIndex: number) => {
+      const meta = chart.getDatasetMeta(datasetIndex)
+      meta.data.forEach((element: any, index: number) => {
+        const value = dataset.data[index]
+        if (!value) return
+        const { x, y } = element.tooltipPosition()
+        ctx.save()
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillStyle = '#fff'
+        ctx.font = 'bold 13px sans-serif'
+        ctx.fillText(value, x, y)
+        ctx.restore()
+      })
+    })
+  }
+}
+
+const radarOptions = {
+  plugins: { legend: { display: true } },
+  scales: { r: { beginAtZero: true } }
+}
+
+const radarLabelsPlugin = {
+  id: 'radarLabels',
+  afterDatasetsDraw(chart: any) {
+    const { ctx } = chart
+    chart.data.datasets.forEach((dataset: any, datasetIndex: number) => {
+      const meta = chart.getDatasetMeta(datasetIndex)
+      const color = dataset.borderColor ?? '#444'
+      meta.data.forEach((element: any, index: number) => {
+        const value = dataset.data[index]
+        if (!value) return
+        const { x, y } = element
+        const cx = chart.scales.r.xCenter
+        const cy = chart.scales.r.yCenter
+        const dx = x - cx
+        const dy = y - cy
+        const len = Math.sqrt(dx * dx + dy * dy)
+        const offset = 12
+        const lx = len > 0 ? x + (dx / len) * offset : x
+        const ly = len > 0 ? y + (dy / len) * offset : y
+        ctx.save()
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillStyle = color
+        ctx.font = 'bold 11px sans-serif'
+        ctx.fillText(value, lx, ly)
+        ctx.restore()
+      })
+    })
+  }
+}
+
 watch(selectedPlayer, () => {
   max.value = stats?.maxPoints(selectedPlayer.value)
   min.value = stats?.minPoints(selectedPlayer.value)
@@ -94,6 +170,11 @@ watch(selectedPlayer, () => {
 <style scoped>
 .player {
   padding-bottom: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+  padding-top: 8px;
 }
 
 dl {
