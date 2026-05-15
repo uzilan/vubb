@@ -32,3 +32,4 @@ coverage
 /src/credentials.ts
 /src/credentials-dev.ts
 /.firebase
+/graphify-out/
