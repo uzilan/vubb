@@ -221,12 +221,20 @@ export class Stats {
   }
 
   weekdays = (): NameAndValue[] => {
-    const weekdays = this.games.map((game) => DateTime.fromISO(game.date).weekdayLong)
-    const frequencies = this.frequencies(weekdays)
-    return frequencies.sort((a, b) => {
-      const wa = DateTime.fromFormat(a.name, 'EEEE')
-      const wb = DateTime.fromFormat(b.name, 'EEEE')
-      return wa.weekday - wb.weekday
+    const entries = this.games.map((game) => {
+      const dt = DateTime.fromISO(game.date)
+      return { weekday: dt.weekday, name: dt.weekdayLong! }
     })
+    const reduced = entries.reduce(
+      (acc, { weekday, name }) => {
+        if (!acc[weekday]) acc[weekday] = { name, value: 0 }
+        acc[weekday].value++
+        return acc
+      },
+      {} as Record<number, NameAndValue>
+    )
+    return Object.entries(reduced)
+      .sort(([a], [b]) => Number(a) - Number(b))
+      .map(([, entry]) => entry)
   }
 }

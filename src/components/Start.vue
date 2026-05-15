@@ -2,6 +2,7 @@
   <InstructionsWrapper />
   <ResetWrapper />
 
+  <img v-if="!playersStore.players.length" src="/ubb.png" class="welcome-logo" alt="UBB" />
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
 
   <Auth @logoutDone="playersStore.reset" />
@@ -117,8 +118,28 @@ onMounted(() => {
   padding: 10px 0;
 }
 
+.welcome-logo {
+  display: block;
+  margin: 10px auto 0;
+  max-width: 400px;
+  width: 40%;
+}
+
+@media (max-width: 430px) {
+  .welcome-logo {
+    width: 70%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 430px) and (orientation: portrait) {
+  .welcome-logo {
+    margin-top: 50px;
+  }
+}
+
 h1 {
-  padding-top: 50px;
+  padding-top: 0;
 }
 
 th,
