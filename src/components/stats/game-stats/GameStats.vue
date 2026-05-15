@@ -1,278 +1,175 @@
 <template>
   <div class="cards">
-    <CContainer>
-      <CRow class="align-items-start">
+    <CContainer fluid>
+      <CRow>
         <CCol>
-          <div class="wrapwrapper">
+          <div class="stat-card">
             <h4>{{ $t('message.winningLeague') }}</h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="winner of stats?.winners()" :key="winner.name">
-                  <span>{{ winner.name }} - {{ winner.value }} {{ $t('message.times') }}</span>
-                </li>
-              </ol>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="winnersData" />
             </div>
           </div>
         </CCol>
         <CCol>
-          <div class="wrapwrapper">
-            <h4 class="nowrap">{{ $t('message.lowestWinningPoints') }}</h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="winner of stats?.lowests()" :key="winner.name">
-                  <span>{{ winner.name }} - {{ winner.points }} {{ $t('message.points') }}</span>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-      </CRow>
-      <CRow>
-        <CCol>
-          <div class="wrapwrapper">
-            <h4>{{ $t('message.pointLeague') }}</h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(heighest, index) of stats?.highests()" :key="index">
-                  <span>{{ heighest.name }} - {{ heighest.value }} {{ $t('message.points') }}</span>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-        <CCol>
-          <div class="wrapwrapper">
-            <h4>{{ $t('message.highestHand') }}</h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(hand, index) of stats?.highestHand()" :key="index">
-                  <span>{{ hand.name }} - {{ hand.value }} {{ $t('message.points') }}</span>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-      </CRow>
-      <CRow>
-        <CCol>
-          <div class="wrapwrapper">
+          <div class="stat-card">
             <h4>{{ $t('message.mostPlayed') }}</h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndGameCount, index) of stats?.mostPlayed()" :key="index">
-                  <span
-                    >{{ playerAndGameCount.name }} - {{ playerAndGameCount.value }}
-                    {{ $t('message.times') }}</span
-                  >
-                </li>
-              </ol>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="mostPlayedData" />
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+      <CRow>
+        <CCol>
+          <div class="stat-card">
+            <h4>{{ $t('message.pointLeague') }}</h4>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="highestsData" />
             </div>
           </div>
         </CCol>
         <CCol>
-          <div class="wrapwrapper">
-            <h4>{{ $t('message.highestDiff') }}</h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(diff, index) of stats?.highestDiff()" :key="index">
-                  <span
-                    >{{ diff.loser.name }} ({{ diff.loser.value }}) - {{ diff.winner.name }} ({{
-                      diff.winner.value
-                    }}) - {{ diff.diff }} {{ $t('message.points') }}
-                  </span>
-                </li>
-              </ol>
+          <div class="stat-card">
+            <h4>{{ $t('message.highestHand') }}</h4>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="highestHandData" />
             </div>
           </div>
         </CCol>
       </CRow>
-    </CContainer>
-    <CContainer>
       <CRow>
-        <CCol
-          ><h4>{{ $t('message.setMasters') }}</h4></CCol
-        >
-      </CRow>
-      <CRow class="justify-content-center">
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilCircle" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().ss" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
+        <CCol>
+          <div class="stat-card">
+            <h4>{{ $t('message.lowestWinningPoints') }}</h4>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="lowestsData" />
             </div>
           </div>
         </CCol>
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().sl" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilMinus" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().ll" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilCircle" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().sss" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().ssl" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilCircle" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().sll" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
-            </div>
-          </div>
-        </CCol>
-        <CCol lg="3" xs="6">
-          <div class="wrapwrapper">
-            <h4 class="center">
-              <CIcon :icon="cilMinus" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-              <CIcon :icon="cilMinus" size="l" />
-            </h4>
-            <div class="stats-wrapper">
-              <ol>
-                <li v-for="(playerAndPoints, index) of stats?.setLeagues().lll" :key="index">
-                  <span
-                    >{{ playerAndPoints.name }} - {{ playerAndPoints.value }}
-                    {{ $t('message.points') }}</span
-                  >
-                </li>
-              </ol>
+        <CCol>
+          <div class="stat-card">
+            <h4>{{ $t('message.highestDiff') }}</h4>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="highestDiffData" />
             </div>
           </div>
         </CCol>
       </CRow>
     </CContainer>
-    <CChart
-      type="bar"
-      :options="options"
-      :data="{
-        labels: stats?.calendar().map((entry) => entry.name),
-        datasets: [
-          {
-            label: $t('message.numberOfGames'),
-            data: stats?.calendar().map((entry) => entry.value) ?? []
-          }
-        ]
-      }"
-      labels="months"
-    />
-    <CChart
-      type="bar"
-      :options="options"
-      :data="{
-        labels: stats?.weekdays().map((entry) => entry.name),
-        datasets: [
-          {
-            label: $t('message.weekday'),
-            data: stats?.weekdays().map((entry) => entry.value) ?? []
-          }
-        ]
-      }"
-      labels="months"
-    />
+    <CContainer fluid>
+      <CRow>
+        <CCol>
+          <div class="stat-card">
+            <div class="set-masters-header">
+              <h4>{{ $t('message.setMasters') }}</h4>
+              <CFormSelect v-model="selectedSet" class="set-select">
+                <option v-for="(setKey, i) in setKeys" :key="setKey" :value="setKey">{{ setLabels[i] }}</option>
+              </CFormSelect>
+            </div>
+            <div class="chart-wrapper">
+              <CChart type="bar" :options="hBarOptionsFixed" :data="setLeagueData(selectedSet)" />
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+    </CContainer>
+    <CContainer fluid>
+      <CRow>
+        <CCol>
+          <div class="stat-card">
+            <h4>{{ $t('message.calendarOverview') }}</h4>
+            <div class="chart-wrapper">
+              <CChart
+                type="bar"
+                :options="vBarOptions"
+                :data="{
+                  labels: stats?.calendar().map((entry) => entry.name),
+                  datasets: [{ data: stats?.calendar().map((entry) => entry.value) ?? [], backgroundColor: chartColor }]
+                }"
+              />
+            </div>
+          </div>
+        </CCol>
+        <CCol>
+          <div class="stat-card">
+            <h4>{{ $t('message.weekdayOverview') }}</h4>
+            <div class="chart-wrapper">
+              <CChart
+                type="bar"
+                :options="vBarOptions"
+                :data="{
+                  labels: stats?.weekdays().map((entry) => entry.name),
+                  datasets: [{ data: stats?.weekdays().map((entry) => entry.value) ?? [], backgroundColor: chartColor }]
+                }"
+              />
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+    </CContainer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Stats } from '@/components/stats/Stats'
+import { Stats, type NameAndValue } from '@/components/stats/Stats'
+import { ref } from 'vue'
 import { CCol, CContainer, CRow } from '@coreui/vue/dist/esm/components/grid'
 import { CChart } from '@coreui/vue-chartjs'
-import { cilCircle, cilMinus } from '@coreui/icons'
-import { CIcon } from '@coreui/icons-vue'
+import { CFormSelect } from '@coreui/vue/dist/esm/components/form'
 import { useGamesStore } from '@/stores/GamesStore'
 
 const gamesStore = useGamesStore()
 const stats = gamesStore.games ? new Stats(gamesStore.games) : undefined
 
-const options = {
-  legend: {
-    display: false
+const chartColor = 'rgba(50, 152, 220, 0.7)'
+
+const hBarOptions = {
+  indexAxis: 'y' as const,
+  plugins: { legend: { display: false } },
+  scales: {
+    x: { beginAtZero: true },
+    y: { ticks: { autoSkip: false } }
   }
 }
+
+const hBarOptionsFixed = {
+  ...hBarOptions,
+  maintainAspectRatio: false
+}
+
+const options = {
+  plugins: { legend: { display: false } }
+}
+
+const vBarOptions = {
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } }
+}
+
+const toChartData = (items: NameAndValue[] | undefined) => ({
+  labels: items?.slice(0, 5).map((i) => `${i.name} (${i.value})`) ?? [],
+  datasets: [{ data: items?.slice(0, 5).map((i) => i.value) ?? [], backgroundColor: chartColor }]
+})
+
+const winnersData = toChartData(stats?.winners())
+const highestsData = toChartData(stats?.highests())
+const highestHandData = toChartData(stats?.highestHand())
+const mostPlayedData = toChartData(stats?.mostPlayed())
+const highestDiffData = {
+  labels: stats?.highestDiff().slice(0, 5).map((d) => `${d.winner.name} vs ${d.loser.name} (${d.diff})`) ?? [],
+  datasets: [{ data: stats?.highestDiff().slice(0, 5).map((d) => d.diff) ?? [], backgroundColor: chartColor }]
+}
+const lowestsData = {
+  labels: stats?.lowests().slice(0, 5).map((w) => `${w.name} (${w.points})`) ?? [],
+  datasets: [{ data: stats?.lowests().slice(0, 5).map((w) => w.points) ?? [], backgroundColor: chartColor }]
+}
+
+type SetKey = 'ss' | 'sl' | 'll' | 'sss' | 'ssl' | 'sll' | 'lll'
+const setKeys: SetKey[] = ['ss', 'sl', 'll', 'sss', 'ssl', 'sll', 'lll']
+const setLabels = ['oo', 'o-', '--', 'ooo', 'oo-', 'o--', '---']
+const selectedSet = ref<SetKey>('ss')
+
+const setLeagueData = (key: SetKey) => toChartData(stats?.setLeagues()[key])
 </script>
 
 <style scoped>
@@ -280,47 +177,64 @@ const options = {
   text-align: -webkit-center;
 }
 
-.wrapwrapper {
-  border: #1f1f1f 1px solid;
-  box-shadow: 2px 2px 2px #3298dc;
-  padding: 2px;
-  margin: 5px;
-}
-
-.stats-wrapper {
-  height: 7.5rem;
-  overflow-y: scroll;
-  font-size: 12pt;
+.stat-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  margin: 6px;
+  background: #fff;
+  text-align: left;
 }
 
 h4 {
-  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 10px;
+  padding-top: 4px;
+}
+
+.set-masters-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.set-masters-header h4 {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.set-select {
+  flex: 0 0 auto;
+  width: 80px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 200px;
+}
+
+ol {
   padding-left: 20px;
-  padding-top: 15px;
+  margin: 0;
 }
 
 li {
-  text-align: left;
+  padding: 3px 0;
+  font-size: 0.95rem;
 }
 
 li:first-child span {
   background-color: #ffb3c2;
-  padding: 2px;
+  padding: 1px 4px;
+  border-radius: 3px;
 }
 
 span {
   white-space: nowrap;
-}
-
-.title {
-  white-space: nowrap;
-}
-
-.chart-wrapper {
-  padding-top: 20px;
-}
-
-ol {
-  padding-left: 25px;
 }
 </style>
