@@ -129,17 +129,22 @@ onMounted(() => {
   padding: 8px 12px;
   margin-bottom: 8px;
   gap: 8px;
+  flex-wrap: nowrap !important;
 }
 
 .top-bar :deep(.header-nav) {
   align-items: center;
   gap: 8px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .top-bar :deep(.btn) {
   font-size: 0.75rem !important;
   padding: 0.2rem 0.5rem !important;
   line-height: 1.4 !important;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .top-bar :deep(.icon) {
