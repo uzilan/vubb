@@ -10,10 +10,7 @@
   <template v-if="authStore.user">
     <Stats />
     <div v-if="!playersStore.players.length" class="players-wrapper">
-      <Players />
-    </div>
-    <div v-if="playersStore.players.length > 0" class="game" key="players.length">
-      <div class="tab-buttons">
+      <div class="game-type-buttons">
         <div class="radio-group">
           <CFormCheck
             type="radio"
@@ -48,6 +45,9 @@
           <span class="radio-label">{{ $t('message.longerUbb') }}</span>
         </div>
       </div>
+      <Players />
+    </div>
+    <div v-if="playersStore.players.length > 0" class="game" key="players.length">
       <Boards :activeTab="activeTab" @saveGame="saveGame" />
     </div>
   </template>
@@ -153,24 +153,11 @@ th,
   width: 100%;
 }
 
-.tab-buttons {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+.game-type-buttons {
   display: flex;
+  justify-content: center;
   gap: 10px;
-}
-
-/* Mobile responsive design */
-@media (max-width: 430px) {
-  .tab-buttons {
-    position: static;
-    transform: none;
-    justify-content: center;
-    margin-top: 10px;
-    margin-left: 0;
-  }
+  margin-bottom: 16px;
 }
 
 .radio-group {

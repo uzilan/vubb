@@ -5,7 +5,7 @@ import { DateTime } from 'luxon'
 
 export const usePlayersStore = defineStore('playersStore', {
   state: () => ({
-    numberOfPlayers: ref<number>(0),
+    numberOfPlayers: ref<number>(4),
     players: ref<Player[]>([]),
   }),
   actions: {
