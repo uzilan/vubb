@@ -1,6 +1,6 @@
 <template>
   <CButton color="primary" @click="showInstructions = true" class="instructions-button"
-    >{{ $t('message.instructions') }}
+    ><CIcon :icon="cilInfo" class="me-1" />{{ $t('message.instructions') }}
   </CButton>
   <CModal
     size="xl"
@@ -29,14 +29,11 @@ import {
 import Instructions from '@/components/instructions/Instructions.vue'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { ref } from 'vue'
+import CIcon from '@coreui/icons-vue'
+import { cilInfo } from '@coreui/icons'
 
 const showInstructions = ref<boolean>(false)
 </script>
 
 <style scoped>
-.instructions-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 </style>

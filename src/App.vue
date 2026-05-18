@@ -12,11 +12,8 @@ import Start from '@/components/Start.vue'
   grid-template-columns: none;
 }
 
-div#app {
-  grid-template-columns: none;
-  padding-left: 5px;
-  padding-right: 5px;
-  width: 100%;
+#app {
+  padding-bottom: 2rem;
 }
 
 html,

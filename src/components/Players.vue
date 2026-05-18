@@ -7,7 +7,7 @@
         :min="2"
         :max="8"
         :step="1"
-        v-model="playersStore.numberOfPlayers"
+        v-model="numberOfPlayers"
         class="players-slider"
       />
       <div class="scale">
@@ -22,9 +22,14 @@
 import { CFormLabel, CFormRange } from '@coreui/vue/dist/esm/components/form'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { usePlayersStore } from '@/stores/PlayersStore'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 
 const playersStore = usePlayersStore()
+
+const numberOfPlayers = computed({
+  get: () => String(playersStore.numberOfPlayers),
+  set: (val: string) => { playersStore.numberOfPlayers = Number(val) }
+})
 
 onMounted(() => {
   if (playersStore.numberOfPlayers < 2) playersStore.numberOfPlayers = 4

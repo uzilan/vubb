@@ -4,7 +4,7 @@
     color="primary"
     @click="showReset = true"
     class="reset-button"
-    >{{ $t('message.restart') }}
+    ><CIcon :icon="cilReload" class="me-1" />{{ $t('message.restart') }}
   </CButton>
   <CModal
     size="l"
@@ -35,6 +35,8 @@ import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { useAuthStore } from '@/stores/AuthStore'
 import { usePlayersStore } from '@/stores/PlayersStore'
 import { ref } from 'vue'
+import CIcon from '@coreui/icons-vue'
+import { cilReload } from '@coreui/icons'
 
 const showReset = ref<boolean>(false)
 const authStore = useAuthStore()
@@ -47,9 +49,4 @@ const resetGame = () => {
 </script>
 
 <style scoped>
-.reset-button {
-  position: absolute;
-  top: 0;
-  left: 110px;
-}
 </style>

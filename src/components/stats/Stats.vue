@@ -1,6 +1,6 @@
 <template>
-  <CButton class="stats" color="primary" @click="openStats"
-    >{{ $t('message.statistics') }}
+  <CButton v-if="authStore.user" class="stats" color="primary" @click="openStats"
+    ><CIcon :icon="cilBarChart" class="me-1" />{{ $t('message.statistics') }}
   </CButton>
   <CModal size="lg" :visible="showStats" @close="showStats = false">
     <CModalHeader>
@@ -48,9 +48,13 @@ import PlayerStats from '@/components/stats/player-stats/PlayerStats.vue'
 import GameHistory from '@/components/stats/game-history/GameHistory.vue'
 import GameStats from '@/components/stats/game-stats/GameStats.vue'
 import { useGamesStore } from '@/stores/GamesStore'
+import { useAuthStore } from '@/stores/AuthStore'
+import CIcon from '@coreui/icons-vue'
+import { cilBarChart } from '@coreui/icons'
 
 const showStats = ref<boolean>(false)
 const gamesStore = useGamesStore()
+const authStore = useAuthStore()
 
 const openStats = () => {
   showStats.value = true
@@ -60,11 +64,6 @@ const openStats = () => {
 </script>
 
 <style scoped>
-.stats {
-  position: absolute;
-  top: 0;
-  right: 120px;
-}
 
 .scroll {
   height: 80vh;

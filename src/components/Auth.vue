@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="logout" v-if="store.user">
-    <CButton color="primary" @click="logout"> {{ $t('message.logout') }}</CButton>
+    <CButton color="primary" @click="logout"><CIcon :icon="cilAccountLogout" class="me-1" />{{ $t('message.logout') }}</CButton>
   </div>
 </template>
 <script setup lang="ts">
@@ -33,6 +33,8 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { CButton } from '@coreui/vue/dist/esm/components/button'
 import { useAuthStore } from '@/stores/AuthStore'
+import CIcon from '@coreui/icons-vue'
+import { cilAccountLogout } from '@coreui/icons'
 
 // Component name for linting
 defineOptions({
@@ -74,13 +76,7 @@ const logout = () => {
 
 <style scoped>
 .login {
-  width: 100%;
-  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 0;
 }
 
 .login-button-google {
@@ -90,14 +86,8 @@ const logout = () => {
 .google-login-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  min-width: 200px;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .google-icon {
@@ -106,11 +96,6 @@ const logout = () => {
 }
 
 .logout {
-  position: absolute;
-  top: 0;
-  left: 0;
   white-space: nowrap;
-  font-weight: bold;
-  padding-left: 10px;
 }
 </style>

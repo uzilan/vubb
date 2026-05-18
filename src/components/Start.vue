@@ -1,14 +1,18 @@
 <template>
-  <InstructionsWrapper />
-  <ResetWrapper />
+  <CHeader class="top-bar">
+    <ResetWrapper />
+    <CHeaderNav class="ms-auto">
+      <Stats />
+      <InstructionsWrapper />
+      <Auth @logoutDone="playersStore.reset" />
+    </CHeaderNav>
+  </CHeader>
 
+  <div class="content">
   <img v-if="!playersStore.players.length" src="/ubb.png" class="welcome-logo" alt="UBB" />
   <h1 v-if="!playersStore.players.length">{{ $t('message.welcome') }}</h1>
 
-  <Auth @logoutDone="playersStore.reset" />
-
   <template v-if="authStore.user">
-    <Stats />
     <div v-if="!playersStore.players.length" class="players-wrapper">
       <div class="game-type-buttons">
         <div class="radio-group">
@@ -53,6 +57,7 @@
   </template>
 
   <GameSaved />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -73,6 +78,7 @@ import GameSaved from '@/components/GameSaved.vue'
 import { onMounted, ref } from 'vue'
 import type { User } from '@firebase/auth'
 import { CFormCheck } from '@coreui/vue/dist/esm/components/form'
+import { CHeader, CHeaderNav } from '@coreui/vue/dist/esm/components/header'
 // import { firebaseConfig } from '@/credentials-dev'
 
 // Component name for linting
@@ -112,6 +118,36 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.content {
+  padding: 0 8px;
+}
+
+.top-bar {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+  border-radius: 0 0 8px 8px;
+  border-bottom: none !important;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.top-bar :deep(.header-nav) {
+  align-items: center;
+  gap: 8px;
+}
+
+.top-bar :deep(.btn) {
+  font-size: 0.75rem !important;
+  padding: 0.2rem 0.5rem !important;
+  line-height: 1.4 !important;
+}
+
+.top-bar :deep(.icon) {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+
 .players-wrapper {
   width: 100%;
   text-align: center;
