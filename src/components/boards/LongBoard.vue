@@ -57,6 +57,7 @@ input {
 td {
   padding-left: 2px !important;
   padding-right: 2px !important;
+  vertical-align: middle;
   width: 200px;
 }
 
