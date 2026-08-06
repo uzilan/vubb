@@ -21,7 +21,7 @@
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell>
-          <PlayerNameInput v-model="player.name" :inputId="`playerName-${playerIndex}`" />
+          {{ player.name }}
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.longerPoints" v-bind:key="pointIndex">
           <CFormInput
@@ -53,7 +53,6 @@ import { CFormInput } from '@coreui/vue/dist/esm/components/form'
 import type { Player } from '@/models/Player'
 import { ref, watch } from 'vue'
 import { usePlayersStore } from '@/stores/PlayersStore'
-import PlayerNameInput from '@/components/PlayerNameInput.vue'
 
 // Component name for linting
 defineOptions({

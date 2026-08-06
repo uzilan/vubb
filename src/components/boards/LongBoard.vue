@@ -15,7 +15,7 @@
     <CTableBody>
       <CTableRow v-for="(player, playerIndex) in playersStore.players" :key="playerIndex">
         <CTableDataCell class="name">
-          <PlayerNameInput v-model="player.name" :inputId="`playerName-${playerIndex}`" />
+          {{ player.name }}
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.points" v-bind:key="pointIndex">
           <CFormCheck id="flexCheckDefault" />
@@ -36,7 +36,6 @@ import {
 import { CFormCheck } from '@coreui/vue/dist/esm/components/form'
 import { usePlayersStore } from '@/stores/PlayersStore'
 import CellWithIcons from '@/components/boards/CellWithIcons.vue'
-import PlayerNameInput from '@/components/PlayerNameInput.vue'
 
 // Component name for linting
 defineOptions({
