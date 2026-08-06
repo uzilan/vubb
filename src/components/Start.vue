@@ -51,7 +51,17 @@
       </div>
       <Players />
     </div>
-    <div v-if="playersStore.players.length > 0" class="game" key="players.length">
+    <div
+      v-if="playersStore.players.length > 0 && !playersStore.namesConfirmed"
+      class="players-wrapper"
+    >
+      <PlayerNames />
+    </div>
+    <div
+      v-if="playersStore.players.length > 0 && playersStore.namesConfirmed"
+      class="game"
+      key="players.length"
+    >
       <Boards :activeTab="activeTab" @saveGame="saveGame" />
     </div>
   </template>
@@ -73,6 +83,7 @@ import InstructionsWrapper from '@/components/instructions/InstructionsWrapper.v
 import ResetWrapper from '@/components/ResetWrapper.vue'
 import { useGamesStore } from '@/stores/GamesStore'
 import Players from '@/components/Players.vue'
+import PlayerNames from '@/components/PlayerNames.vue'
 import Boards from '@/components/boards/Boards.vue'
 import GameSaved from '@/components/GameSaved.vue'
 import { onMounted, ref } from 'vue'

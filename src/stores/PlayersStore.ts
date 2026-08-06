@@ -7,11 +7,16 @@ export const usePlayersStore = defineStore('playersStore', {
   state: () => ({
     numberOfPlayers: ref<number>(4),
     players: ref<Player[]>([]),
+    namesConfirmed: ref<boolean>(false),
   }),
   actions: {
     reset() {
       this.numberOfPlayers = 0
       this.players = []
+      this.namesConfirmed = false
+    },
+    confirmNames() {
+      this.namesConfirmed = true
     },
     initPlayers() {
       for (let i = 0; i < this.numberOfPlayers; i++) {
