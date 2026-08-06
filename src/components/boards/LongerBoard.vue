@@ -25,7 +25,9 @@
         </CTableDataCell>
         <CTableDataCell v-for="(point, pointIndex) in player.longerPoints" v-bind:key="pointIndex">
           <CFormInput
-            type="number"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
             id="numberOfPlayers"
             label=""
             placeholder=""
