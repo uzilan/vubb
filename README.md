@@ -1,21 +1,57 @@
 # vubb
 
-This template should help get you started developing with Vue 3 in Vite.
+UBB card game score tracker. Live at [ubbspel.se](https://ubbspel.se/). Vue 3 SPA — no router, navigation driven by
+conditional rendering based on auth state and app phase.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
-disable Vetur).
+- Google login (Firebase Auth)
+- Player setup with name auto-complete based on previously used names
+- Three board variants: normal (UBB), long, and longer
+- Game history and per-player stats (Chart.js)
+- In-app rules/instructions
+- Game state persisted to localStorage; saved games stored in Firestore
 
-## Type Support for `.vue` Imports in TS
+## Screenshots
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for
-type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the
-TypeScript language service aware of `.vue` types.
+| Welcome | Player Names | Scoreboard |
+| --- | --- | --- |
+| ![Welcome](public/welcome.png) | ![Player Names](public/names.png) | ![Scoreboard](public/scores.png) |
 
-## Customize configuration
+| Stats | Instructions |
+| --- | --- |
+| ![Stats](public/stats.png) | ![Instructions](public/instructions.png) |
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Architecture
+
+```text
+App.vue → Start.vue (orchestrator)
+  Auth.vue              → Google login gate
+  Players.vue           → player count/name setup
+  Boards.vue            → tab switcher (normal/long/longer board variants)
+    boards/Board.vue        → 7-set game
+    boards/LongBoard.vue    → extended game
+    boards/LongerBoard.vue  → longest variant
+  stats/Stats.vue       → game history and player stats (Chart.js)
+  Instructions.vue      → game rules
+  Reset.vue             → reset game state
+  GameSaved.vue         → save confirmation
+```
+
+**State (Pinia):**
+
+- `AuthStore` — Firebase Auth user + ID token (not persisted)
+- `PlayersStore` — player names and points arrays, persisted to localStorage
+- `GamesStore` — Firestore games list, loading state, save action
+
+**Backend:** Firebase (project `ubb-spel-aebae`) — Firestore for game
+persistence, Google OAuth for auth.
+
+**Key data models** (`src/models/`):
+
+- `Player` — `{ name, points[], longerPoints[] }`
+- `Game` — `{ playerNames[], rows[], winner, date, savedBy }`
+- `Row` — per-player score row with fields `ss, sl, ll, sss, ssl, sll, lll, sum`
 
 ## Project Setup
 
@@ -41,17 +77,20 @@ npm run build
 npm run lint
 ```
 
-## Features
+### Format with [Prettier](https://prettier.io/)
 
-### Player Name Auto-Complete
+```sh
+npm run format
+```
 
-The application now includes auto-complete functionality for player names:
+No test suite configured.
 
-- **Auto-complete suggestions**: When entering player names, the system will show suggestions based on previously used names from Firebase
-- **Keyboard navigation**: Use arrow keys to navigate through suggestions and Enter to select
-- **Mouse interaction**: Click on suggestions to select them
-- **Custom names**: You can still enter new names that aren't in the suggestions
-- **Automatic trimming**: Names are automatically trimmed of whitespace when selected or when the input loses focus
-- **Real-time filtering**: Suggestions are filtered as you type
+## Tech Stack
 
-The auto-complete feature works across all game board types (UBB, Long UBB, and Longer UBB).
+Vue 3, Vite, TypeScript, Pinia, Firebase (Auth + Firestore), CoreUI Vue,
+Chart.js, Luxon, vue-i18n.
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
+disable Vetur).
