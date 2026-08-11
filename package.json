@@ -21,7 +21,7 @@
     "@coreui/vue-chartjs": "^3.0.0",
     "chartjs-plugin-datalabels": "^2.2.0",
     "firebase": "^12.6.0",
-    "firebase-admin": "^13.6.0",
+    "firebase-admin": "^14.2.0",
     "luxon": "^3.6.1",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.2.0",
