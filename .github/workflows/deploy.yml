@@ -16,6 +16,19 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Write credentials.ts
+        run: |
+          cat > src/credentials.ts <<'EOF'
+          export const firebaseConfig = {
+            apiKey: '${{ secrets.FIREBASE_API_KEY }}',
+            authDomain: 'ubb-spel-aebae.firebaseapp.com',
+            projectId: 'ubb-spel-aebae',
+            storageBucket: 'ubb-spel-aebae.appspot.com',
+            messagingSenderId: '395492793253',
+            appId: '1:395492793253:web:2a30e88d78082de191e64c'
+          }
+          EOF
+
       - run: npm ci
       - run: npm run build
 
