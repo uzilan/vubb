@@ -75,6 +75,7 @@ import { Stats } from '@/components/stats/Stats'
 import { ref, watch } from 'vue'
 import { CChart } from '@coreui/vue-chartjs'
 import { useGamesStore } from '@/stores/GamesStore'
+import type { ArcElement, Chart, ChartDataset, PointElement, RadialLinearScale } from 'chart.js'
 
 const gamesStore = useGamesStore()
 const stats = gamesStore.games ? new Stats(gamesStore.games) : undefined
@@ -86,11 +87,6 @@ const average = ref<number>()
 const setAverages = ref<number[]>()
 const setMaxes = ref<number[]>()
 const placements = ref<number[]>()
-const options = {
-  legend: {
-    display: false
-  }
-}
 
 const doughnutOptions = {
   plugins: {
@@ -100,20 +96,20 @@ const doughnutOptions = {
 
 const pieLabelsPlugin = {
   id: 'pieLabels',
-  afterDatasetsDraw(chart: any) {
+  afterDatasetsDraw(chart: Chart) {
     const { ctx } = chart
-    chart.data.datasets.forEach((dataset: any, datasetIndex: number) => {
+    chart.data.datasets.forEach((dataset: ChartDataset, datasetIndex: number) => {
       const meta = chart.getDatasetMeta(datasetIndex)
-      meta.data.forEach((element: any, index: number) => {
+      meta.data.forEach((element: unknown, index: number) => {
         const value = dataset.data[index]
         if (!value) return
-        const { x, y } = element.tooltipPosition()
+        const { x, y } = (element as ArcElement).tooltipPosition(false)
         ctx.save()
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillStyle = '#fff'
         ctx.font = 'bold 13px sans-serif'
-        ctx.fillText(value, x, y)
+        ctx.fillText(String(value), x, y)
         ctx.restore()
       })
     })
@@ -127,17 +123,18 @@ const radarOptions = {
 
 const radarLabelsPlugin = {
   id: 'radarLabels',
-  afterDatasetsDraw(chart: any) {
+  afterDatasetsDraw(chart: Chart) {
     const { ctx } = chart
-    chart.data.datasets.forEach((dataset: any, datasetIndex: number) => {
+    chart.data.datasets.forEach((dataset: ChartDataset, datasetIndex: number) => {
       const meta = chart.getDatasetMeta(datasetIndex)
-      const color = dataset.borderColor ?? '#444'
-      meta.data.forEach((element: any, index: number) => {
+      const color = (dataset.borderColor as string) ?? '#444'
+      meta.data.forEach((element: unknown, index: number) => {
         const value = dataset.data[index]
         if (!value) return
-        const { x, y } = element
-        const cx = chart.scales.r.xCenter
-        const cy = chart.scales.r.yCenter
+        const { x, y } = element as PointElement
+        const radialScale = chart.scales.r as RadialLinearScale
+        const cx = radialScale.xCenter
+        const cy = radialScale.yCenter
         const dx = x - cx
         const dy = y - cy
         const len = Math.sqrt(dx * dx + dy * dy)
@@ -149,7 +146,7 @@ const radarLabelsPlugin = {
         ctx.textBaseline = 'middle'
         ctx.fillStyle = color
         ctx.font = 'bold 11px sans-serif'
-        ctx.fillText(value, lx, ly)
+        ctx.fillText(String(value), lx, ly)
         ctx.restore()
       })
     })

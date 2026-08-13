@@ -151,10 +151,6 @@ const hBarOptionsFixed = {
   maintainAspectRatio: false
 }
 
-const options = {
-  plugins: { legend: { display: false } }
-}
-
 const vBarOptions = {
   maintainAspectRatio: false,
   plugins: { legend: { display: false } }
