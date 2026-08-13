@@ -1,7 +1,7 @@
 <template>
   <CTableHeaderCell scope="col">
     <template v-for="(letter, index) of icons" v-bind:key="index">
-      <CIcon :icon="letter === 'o' ? cilCircle : cilMinus" size="l" />
+      <CIcon :icon="letter === 'o' ? cilCircle : cilMinus" size="lg" />
     </template>
   </CTableHeaderCell>
 </template>

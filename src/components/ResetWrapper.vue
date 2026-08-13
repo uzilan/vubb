@@ -7,7 +7,7 @@
     ><CIcon :icon="cilReload" class="me-1" />{{ $t('message.restart') }}
   </CButton>
   <CModal
-    size="l"
+    size="lg"
     alignment="center"
     :backdrop="true"
     :keyboard="false"
