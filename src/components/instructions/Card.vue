@@ -51,8 +51,8 @@ const loadData = () => {
     return
   }
 
-  let rank = ''
-  let suit = ''
+  let rank: string
+  let suit: string
 
   switch (props.code[0]) {
     case 'c':
