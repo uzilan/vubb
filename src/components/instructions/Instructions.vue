@@ -171,7 +171,7 @@ import CellWithIcons from '@/components/boards/CellWithIcons.vue'
           </div>
           &nbsp;
           <div class="pile">
-            <img src="/SVG-cards/pile.png" class="pile-image" alt="card pile" /><br />
+            <img src="/SVG-cards/pile.svg" class="pile-image" alt="card pile" /><br />
             <b>{{ $t('message.drawPile') }}</b>
           </div>
         </div>
